@@ -1,0 +1,18 @@
+# cd ~/lab0
+cd lab0
+
+cp boldore5 camerupt0/happinyboldore
+
+cat poochyena5/spoink camerupt0/happiny>boldore5_26
+# ошибка: cat: poochyena5/spoink: Отказано в доступе
+# выдадим право на чтение poochyena5/spoink
+chmod u+r poochyena5/spoink
+cat poochyena5/spoink camerupt0/happiny>boldore5_26
+
+cp -r camerupt0 poochyena5/drapion
+# ошибка: cp: невозможно получить доступ к 'camerupt0': Отказано в доступе
+# выдадим право на чтение camerupt0
+chmod u+r camerupt0
+cp -r camerupt0 poochyena5/drapion
+# ошибка: cp: невозможно открыть 'camerupt0/spheal' для чтения: Отказано в доступе
+
