@@ -1,7 +1,5 @@
-# mkdir ~/lab0
-# cd ~/lab0
-mkdir lab0
-cd lab0
+mkdir ~/lab0
+cd ~/lab0
 
 touch boldore5 ducklett1 hypno5
 mkdir camerupt0 pichu9 poochyena5
