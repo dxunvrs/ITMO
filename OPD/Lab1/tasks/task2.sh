@@ -1,5 +1,4 @@
-#cd ~/lab0
-cd lab0
+cd ~/lab0
 
 chmod u=rw,g=w,o=r boldore5
 

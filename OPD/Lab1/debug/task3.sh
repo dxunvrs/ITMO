@@ -1,5 +1,5 @@
-# cd ~/lab0
-cd lab0
+# cd ~/lab0 - для лабы
+cd ~/Projects/OPD/Lab1/lab0
 
 cp boldore5 camerupt0/happinyboldore
 
@@ -44,7 +44,7 @@ cp ducklett1 camerupt0/toxicroak
 # у каталога pichu9/voltorb отсутствует право на чтение, добавим его
 chmod u+r pichu9/voltorb
 # покажем дерево каталогов
-ls -lRi
+tree ./
 
 # возвращаем все права на место
 chmod u-r pichu9/voltorb
