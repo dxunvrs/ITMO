@@ -20,7 +20,7 @@ public class Main {
 
     public static float[] setRandomNumbers(float[] array) {
         for (int i = 0; i < array.length; i++) {
-            array[i] = -6.0f + (float)(Math.random() * 15.0f);
+            array[i] = -5.0f + (float)(Math.random() * 15.0f);
         }
         return array;
     }
@@ -52,4 +52,5 @@ public class Main {
         }
     }
 }
+
 
