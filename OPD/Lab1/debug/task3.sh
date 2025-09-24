@@ -1,5 +1,5 @@
 # cd ~/lab0 - для лабы
-cd ~/Projects/OPD/Lab1/lab0
+cd ~/Study/OPD/Lab1/lab0
 
 cp boldore5 camerupt0/happinyboldore
 
@@ -29,10 +29,10 @@ cp -rn camerupt0 poochyena5/drapion
 
 ln boldore5 camerupt0/sphealboldore 
 
-ln -s ~/Projects/OPD/Lab1/lab0/ducklett1 camerupt0/sphealducklett
+ln -s ~/Study/OPD/Lab1/lab0/ducklett1 camerupt0/sphealducklett
 # для лабы ~/lab0/ducklett1
 
-ln -s ~/Projects/OPD/Lab1/lab0/poochyena5 Copy_58
+ln -s ~/Study/OPD/Lab1/lab0/poochyena5 Copy_58
 # для лабы ~/lab0/poochyena5
 
 cp ducklett1 camerupt0/toxicroak

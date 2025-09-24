@@ -1,5 +1,5 @@
 #cd ~/lab0 - для лабы
-cd ~/Projects/OPD/Lab1/lab0
+cd ~/Study/OPD/Lab1/lab0
 
 chmod u=rw,g=w,o=r boldore5
 

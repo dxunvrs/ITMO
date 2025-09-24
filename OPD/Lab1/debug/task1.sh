@@ -1,7 +1,7 @@
 # mkdir ~/lab0
 # cd ~/lab0 - для лабы
-mkdir ~/Projects/OPD/Lab1/lab0
-cd ~/Projects/OPD/Lab1/lab0
+mkdir ~/Study/OPD/Lab1/lab0
+cd ~/Study/OPD/Lab1/lab0
 
 touch boldore5 ducklett1 hypno5
 mkdir camerupt0 pichu9 poochyena5

@@ -1,5 +1,5 @@
 # для лабы ~/lab0
-cd ~/Projects/OPD/Lab1/lab0
+cd ~/Study/OPD/Lab1/lab0
 
 rm -r boldore5 
 
@@ -13,7 +13,7 @@ rm -r camerupt0/sphealduckle*
 
 rm -r camerupt0/sphealboldo* 
 
-rm -r pichu9
+rm -rf pichu9
 # файл pichu9/snorlax защищен от записи и не удалился
 # выдадим ему право на запись
 chmod u+w pichu9/snorlax
