@@ -2,12 +2,11 @@ cd ~/lab0
 
 
 echo "Подсчитать количество строк содержимого файлов: carvanha, goldeen, sunflora, snorlax, nuzleaf, результат записать в файл в директории /tmp, ошибки доступа перенаправить в файл в директории /tmp"
-mkdir tmp
-wc -l camerupt0/carvanha camerupt0/goldeen camerupt0/sunflora pichu9/snorlax pichu9/nuzleaf >>tmp/out 2>>tmp/err
+wc -l camerupt0/carvanha camerupt0/goldeen camerupt0/sunflora pichu9/snorlax pichu9/nuzleaf >>/tmp/out 2>>/tmp/err
 echo "Вывод:"
-cat tmp/out
+cat /tmp/out
 echo "Ошибки"
-cat tmp/err
+cat /tmp/err
 
 echo ""
 
