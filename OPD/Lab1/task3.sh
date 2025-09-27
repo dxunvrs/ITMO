@@ -1,5 +1,4 @@
-# cd ~/lab0 - для лабы
-cd ~/Study/OPD/Lab1/lab0
+cd ~/lab0
 
 cp boldore5 camerupt0/happinyboldore
 
@@ -11,7 +10,7 @@ cat poochyena5/spoink camerupt0/happiny>boldore5_26
 
 # право на чтение у poochyena5 и poochyena5/drapion отсутствуют, заранее выдадим их,
 # чтобы увидеть результат
-chmod u+r poochyena5 poochyena5/drapion
+# chmod u+r poochyena5 poochyena5/drapion
 
 cp -r camerupt0 poochyena5/drapion
 # ошибка: cp: невозможно получить доступ к 'camerupt0': Отказано в доступе
@@ -29,11 +28,9 @@ cp -rn camerupt0 poochyena5/drapion
 
 ln boldore5 camerupt0/sphealboldore 
 
-ln -s ~/Study/OPD/Lab1/lab0/ducklett1 camerupt0/sphealducklett
-# для лабы ~/lab0/ducklett1
+ln -s ~/lab0/ducklett1 camerupt0/sphealducklett
 
-ln -s ~/Study/OPD/Lab1/lab0/poochyena5 Copy_58
-# для лабы ~/lab0/poochyena5
+ln -s ~/lab0/poochyena5 Copy_58
 
 cp ducklett1 camerupt0/toxicroak
 # ошибка: cp: невозможно создать обычный файл 'camerupt0/toxicroak/ducklett1': Отказано в доступе
@@ -42,12 +39,12 @@ chmod u+w camerupt0/toxicroak
 cp ducklett1 camerupt0/toxicroak
 
 # у каталога pichu9/voltorb отсутствует право на чтение, добавим его
-chmod u+r pichu9/voltorb
+# chmod u+r pichu9/voltorb
 # покажем дерево каталогов
-tree ./
+# ls -lRi
 
 # возвращаем все права на место
-chmod u-r pichu9/voltorb
+# chmod u-r pichu9/voltorb
 chmod u-r poochyena5/spoink
 chmod u-r poochyena5 poochyena5/drapion
 chmod u-r poochyena5/drapion/camerupt0
