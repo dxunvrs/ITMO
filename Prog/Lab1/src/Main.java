@@ -20,7 +20,7 @@ public class Main {
 
     public static float[] setRandomNumbers(float[] array) {
         for (int i = 0; i < array.length; i++) {
-            array[i] = -5.0f + (float)(Math.random() * 15.0f);
+            array[i] = -5.0f + (float)(Math.random() * 14.0f);
         }
         return array;
     }
@@ -28,14 +28,15 @@ public class Main {
     public static double[][] setMatrix(double[][] array, long[] l, float[] x) {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
-                if (l[i] == 16) {
-                    array[i][j] = Math.atan(1/(Math.pow(Math.exp(Math.pow(2*Math.pow(Math.cos(x[j]),2),Math.E)),Math.pow(((2/3+x[j])/0.25),x[j]))));
-                }
-                else if (l[i] == 6 || l[i] == 8 || l[i] == 10 || l[i] == 20) {
-                    array[i][j] = Math.cos(Math.cbrt(Math.atan((x[j]+2)/14)));
-                }
-                else {
-                    array[i][j] = Math.asin(Math.sin(Math.pow(Math.pow(x[j],(4-x[j])/x[j]), Math.log(Math.exp(x[j])))));
+                switch((int)l[i]) {
+                    case 16:
+                        array[i][j] = Math.atan(1/(Math.pow(Math.exp(Math.pow(2*Math.pow(Math.cos(x[j]),2),Math.E)),Math.pow(((2/3+x[j])/0.25),x[j]))));
+                        break;
+                    case 6,8,10,20:
+                        array[i][j] = Math.cos(Math.cbrt(Math.atan((x[j]+2)/14)));
+                        break;
+                    default:
+                        array[i][j] = Math.asin(Math.sin(Math.pow(Math.pow(x[j],(4-x[j])/x[j]), Math.log(Math.exp(x[j])))));
                 }
             }
         }
