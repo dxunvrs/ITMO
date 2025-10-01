@@ -37,6 +37,7 @@ public class Main {
                         break;
                     default:
                         array[i][j] = Math.asin(Math.sin(Math.pow(Math.pow(x[j],(4-x[j])/x[j]), Math.log(Math.exp(x[j])))));
+                        break;
                 }
             }
         }
