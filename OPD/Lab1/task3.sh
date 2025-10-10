@@ -8,23 +8,17 @@ cat poochyena5/spoink camerupt0/happiny>boldore5_26
 chmod u+r poochyena5/spoink
 cat poochyena5/spoink camerupt0/happiny>boldore5_26
 
-# право на чтение у poochyena5 и poochyena5/drapion отсутствуют, заранее выдадим их,
-# чтобы увидеть результат
-# chmod u+r poochyena5 poochyena5/drapion
 
-cp -r camerupt0 poochyena5/drapion
+cp -r camerupt0/. poochyena5/drapion
 # ошибка: cp: невозможно получить доступ к 'camerupt0': Отказано в доступе
-# при этом создался пустой католог camerupt0 в poochyena5/drapion, недоступный для чтения
-# выдадим ему право на чтение
-chmod u+r poochyena5/drapion/camerupt0
 # выдадим право на чтение camerupt0
 chmod u+r camerupt0
-cp -r camerupt0 poochyena5/drapion
+cp -r camerupt0/. poochyena5/drapion
 # ошибка: cp: невозможно открыть 'camerupt0/spheal' для чтения: Отказано в доступе
 # выдадим право на чтение camerupt0/spheal
 chmod u+r camerupt0/spheal
 # добавим атрибут -n чтобы игнорировать сообщения о перезаписи
-cp -rn camerupt0 poochyena5/drapion
+cp -rn camerupt0/. poochyena5/drapion
 
 ln boldore5 camerupt0/sphealboldore 
 
@@ -44,10 +38,10 @@ cp ducklett1 camerupt0/toxicroak
 # ls -lRi
 
 # возвращаем все права на место
-# chmod u-r pichu9/voltorb
-chmod u-r poochyena5/spoink
-chmod u-r poochyena5 poochyena5/drapion
-chmod u-r poochyena5/drapion/camerupt0
-chmod u-r camerupt0
-chmod u-r camerupt0/spheal
-chmod u-w camerupt0/toxicroak
+
+# chmod u-r poochyena5/spoink
+# chmod u-r poochyena5 poochyena5/drapion
+# chmod u-r poochyena5/drapion/camerupt0
+# chmod u-r camerupt0
+# chmod u-r camerupt0/spheal
+# chmod u-w camerupt0/toxicroak
