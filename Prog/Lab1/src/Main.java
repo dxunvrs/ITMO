@@ -4,7 +4,14 @@ public class Main {
         float[] x = setRandomNumbers(new float[13]);
         double[][] l1 = setMatrix(new double[9][13], l, x);
 
-        showMatrix(l1);
+        // showMatrix(l1);
+        task();
+    }
+
+    public static void task() {
+        int a = 1;
+        int b = 2;
+        System.out.printf("%d + %d = %d", a, b, a+b);
     }
 
     public static long[] setEvenNumbers(long[] array) {
@@ -26,7 +33,7 @@ public class Main {
             for (int j = 0; j < array[i].length; j++) {
                 switch((int)l[i]) {
                     case 16 ->
-                        array[i][j] = Math.atan(1/(Math.pow(Math.exp(Math.pow(2*Math.pow(Math.cos(x[j]),2),Math.E)),Math.pow(((2/3+x[j])/0.25),x[j]))));
+                        array[i][j] = Math.atan(1/(Math.pow(Math.exp(Math.pow(2*Math.pow(Math.cos(x[j]),2),Math.E)),Math.pow(((2/3d+x[j])/0.25),x[j]))));
                     case 6,8,10,20 ->
                         array[i][j] = Math.cos(Math.cbrt(Math.atan((x[j]+2)/14)));
                     default ->
