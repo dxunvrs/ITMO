@@ -1,4 +1,5 @@
 import sys
+import signal
 
 def main():
     while True:
@@ -11,9 +12,9 @@ def main():
                 continue
             print(findError(message))
         except KeyboardInterrupt:
-            print("Ошибка ввода")
+            sys.exit(0)
         except EOFError:
-            print("Ошибка ввода")
+            sys.exit(0)
 
 
 def isMessage(message):
@@ -67,6 +68,6 @@ def findError(message):
         return f"Ошибка в {errorBit-3} информационном бите, верное сообщение: {infBitsMessage}" + f"(полное сообщение: {correctMessage})"
 
 
-
 if __name__ == "__main__":
+    signal.signal(signal.SIGTSTP, lambda s,f : None)
     main()
