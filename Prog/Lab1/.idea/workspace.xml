@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97e999e1-8a00-4bc2-b233-0c7db563929f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Inf/Lab3/Informatics_Lab3_Task1.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inf/Lab3/Informatics_Lab3_Task1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Inf/Lab3/Informatics_Lab3_Task2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inf/Lab3/Informatics_Lab3_Task2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Inf/Lab3/Informatics_Lab3_Task3.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../Inf/Lab3/Informatics_Lab3_Task3.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,15 +21,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "inf-lab3",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;inf-lab3&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="97e999e1-8a00-4bc2-b233-0c7db563929f" name="Changes" comment="" />

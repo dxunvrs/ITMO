@@ -13,7 +13,7 @@ tests = ["students.spam@yandex.ru", "example@example", "example@example.com",
         "ma-in example@yitmot.com",
         "one_more-test1@mail..com",
         "123@yai.com.ru",
-        "test@yai.con..ru"
+        "test@yai.con..ru",
 ]
 
 pattern = r"[a-zA-Z0-9._]+@([a-zA-Z.]+(\.[a-zA-Z.]+)+)$"
