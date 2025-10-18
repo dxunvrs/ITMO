@@ -15,6 +15,7 @@ from pymorphy2 import MorphAnalyzer
 def main():
     for test in tests:
         print(changeText(test[1], test[0]))
+        break
         print()
 
 def changeText(text, number):
@@ -26,15 +27,17 @@ def changeText(text, number):
 
 def findAdjectives(text):
     # ищем слова с окончаниями прилагельных
-    adjPattern = r"\b([а-яё]+)(ий|ый|его|ого|ему|ому|им|ым|ем|ом|ая|яя|ей|ой|ую|юю|ое|ее|ых|ые|ыми)\b"
-    adjectives = re.findall(adjPattern, text, flags=re.IGNORECASE)
+    wordPattern = r"\b([а-яё]+)(ий|ый|его|ого|ему|ому|им|ым|ем|ом|ая|яя|ей|ой|ую|юю|ое|ее|ых|ые|ыми)\b"
+    words = re.findall(wordPattern, text, flags=re.IGNORECASE)
 
     # проверяем действительно ли они прилагательные
     morph = MorphAnalyzer()
-    for adjective in adjectives:
-        word = adjective[0] + adjective[1]
-        #part = morph.parse(word)
-        #print(part.tag.POS)
+    adjectives = []
+    for word in words:
+        s = word[0] + word[1]
+        part = morph.parse(s)[0]
+        if part.tag.POS == "ADJF":
+            adjectives += [word]
 
     # оставляем только те, где основа встретилась 2 раза или больше, lower() используем для случая с заглавной буквой
     wordBases = [x[0].lower() for x in adjectives]
