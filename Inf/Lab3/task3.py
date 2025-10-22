@@ -10,49 +10,48 @@ from Informatics_Lab3_Task3 import tests
 import re
 from pymorphy2 import MorphAnalyzer
 
-
-
 def main():
     for test in tests:
-        print(changeText(test[1], test[0]))
-        break
+        print(changeAdjectivesForms(test[0], test[1]))
         print()
 
-def changeText(text, number):
-    adjectives = findAdjectives(text)
-    if len(adjectives) == 0 or number > len(adjectives):
-        return "Ошибка ввода"
-    newForm = createNewForm(adjectives, number)
-    return changeAdjectivesForms(text, adjectives, newForm)
+def changeAdjectivesForms(number, text):
+    adjEnding = r"(ий|ый|его|ого|ему|ому|им|ым|ем|ом|ая|яя|ей|ой|ую|юю|ое|ее|ых|ые|ыми|ие|их|ими)"
 
-def findAdjectives(text):
-    # ищем слова с окончаниями прилагельных
-    wordPattern = r"\b([а-яё]+)(ий|ый|его|ого|ему|ому|им|ым|ем|ом|ая|яя|ей|ой|ую|юю|ое|ее|ых|ые|ыми)\b"
-    words = re.findall(wordPattern, text, flags=re.IGNORECASE)
+    # ищем слова с окончаниями прилагательных
+    adjPattern = rf"\b([А-ЯЁ]?[а-яё]+){adjEnding}\b"
+    words = re.findall(adjPattern, text)
 
-    # проверяем действительно ли они прилагательные
-    morph = MorphAnalyzer()
+    # отбираем только прилагательные
     adjectives = []
+    morph = MorphAnalyzer()
     for word in words:
         s = word[0] + word[1]
         part = morph.parse(s)[0]
         if part.tag.POS == "ADJF":
             adjectives += [word]
 
-    # оставляем только те, где основа встретилась 2 раза или больше, lower() используем для случая с заглавной буквой
     wordBases = [x[0].lower() for x in adjectives]
-    adjectives = [x for x in adjectives if wordBases.count(x[0].lower())>1]
 
-    return adjectives
+    # выбираем основу, которая встречается макс кол-во раз
+    commonBase = max(wordBases, key=lambda x: wordBases.count(x))
+    if wordBases.count(commonBase) == 1:
+        return "Ошибка ввода, нет повторяющихся слов"
+    
+    # оставляем только самые часто встречаемые прилагательные
+    adjectives = [x for x in adjectives if x[0].lower() == commonBase]
 
-def createNewForm(adjectives, number):
-    newForm = adjectives[number-1][1] # запоминаем окончание вхождения под номером number
 
-    return newForm
+    # запоминаем окончание нужного вхождения
+    if number-1 > len(adjectives):
+        return "Ошибка ввода, мало повторяющихся слов"
+    newForm = adjectives[number-1][1]
+   
+    # меняем вхождения с маленькой буквы
+    changedText = re.sub(rf"\b({commonBase}){adjEnding}\b", rf"\1{newForm}", text)
 
-def changeAdjectivesForms(text, adjectives, newForm):
-    # заменяем прилагательные с нужной основой и любым окончанием на прилагательные с нужной основой и окончанием
-    changedText = re.sub(rf"\b({adjectives[0][0]})(ий|ый|его|ого|ему|ому|им|ым|ем|ом|ая|яя|ей|ой|ую|юю|ое|ее|ых|ые|ыми)\b", rf"\1{newForm}", text, flags=re.IGNORECASE)
+    # меняем вхождения с заглавной буквы
+    changedText = re.sub(rf"\b({commonBase[0].upper()+commonBase[1:]}){adjEnding}\b", rf"\1{newForm}", changedText)
 
     return changedText
 
