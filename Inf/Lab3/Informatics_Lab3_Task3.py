@@ -34,41 +34,46 @@ test5 = (6, """
 Большой город, большие улицы и большое движение создавали большую суету. Большие здания теснились в большом пространстве.
 """)
 
-tests = [test0, test1, test2, test3, test4, test5]
+test6 = (1, """
+Такой большой, но таКие маленький и такая больших
+""")
+
+tests = [test0, test1, test2, test3, test4, test5, test6]
 
 def main():
     for test in tests:
-        print(changeText(test[1], test[0]))
+        print(changeAdjectivesForms(test[0], test[1]))
         print()
 
-def changeText(text, number):
-    adjectives = findAdjectives(text)
-    if len(adjectives) == 0 or number > len(adjectives):
-        return "Ошибка ввода"
-    newForm = createNewForm(adjectives, number)
-    return changeAdjectivesForms(text, adjectives, newForm)
+def changeAdjectivesForms(number, text):
+    adjEnding = r"(ий|ый|его|ого|ему|ому|им|ым|ем|ом|ая|яя|ей|ой|ую|юю|ое|ее|ых|ые|ыми|ие|их|ими)"
 
-def findAdjectives(text):
-    # ищем слова с окончаниями прилагельных
-    adjPattern = r"\b([а-яё]+)(ий|ый|его|ого|ему|ому|им|ым|ем|ом|ая|яя|ей|ой|ую|юю|ое|ее|ых|ые|ыми)\b"
-    adjectives = re.findall(adjPattern, text, flags=re.IGNORECASE)
-
-    # оставляем только те, где основа встретилась 2 раза или больше, lower() используем для случая с заглавной буквой
+    # ищем слова с окончаниями прилагательных
+    adjPattern = rf"\b([А-ЯЁ]?[а-яё]+){adjEnding}\b"
+    adjectives = re.findall(adjPattern, text)
     wordBases = [x[0].lower() for x in adjectives]
-    adjectives = [x for x in adjectives if wordBases.count(x[0].lower())>1]
 
-    return adjectives
+    # выбираем основу, которая встречается макс кол-во раз
+    commonBase = max(wordBases, key=lambda x: wordBases.count(x))
+    if wordBases.count(commonBase) == 1:
+        return "Ошибка ввода, нет повторяющихся слов"
+    
+    # оставляем только самые часто встречаемые прилагательные
+    adjectives = [x for x in adjectives if x[0].lower() == commonBase]
 
-def createNewForm(adjectives, number):
-    newForm = adjectives[number-1][1] # запоминаем окончание вхождения под номером number
+    # запоминаем окончание нужного вхождения
+    if number-1 > len(adjectives):
+        return "Ошибка ввода, мало повторяющихся слов"
+    newForm = adjectives[number-1][1]
+   
+    # меняем вхождения с маленькой буквы
+    changedText = re.sub(rf"\b({commonBase}){adjEnding}\b", rf"\1{newForm}", text)
 
-    return newForm
-
-def changeAdjectivesForms(text, adjectives, newForm):
-    # заменяем прилагательные с нужной основой и любым окончанием на прилагательные с нужной основой и окончанием
-    changedText = re.sub(rf"\b({adjectives[0][0]})(ий|ый|его|ого|ему|ому|им|ым|ем|ом|ая|яя|ей|ой|ую|юю|ое|ее|ых|ые|ыми)\b", rf"\1{newForm}", text, flags=re.IGNORECASE)
+    # меняем вхождения с заглавной буквы
+    changedText = re.sub(rf"\b({commonBase[0].upper()+commonBase[1:]}){adjEnding}\b", rf"\1{newForm}", changedText)
 
     return changedText
+
 
 if __name__ == "__main__":
     main()
