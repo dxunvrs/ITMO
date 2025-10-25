@@ -1,0 +1,24 @@
+package moves;
+
+import ru.ifmo.se.pokemon.*;
+
+public class Facade extends PhysicalMove{
+    public Facade() {
+        super(Type.NORMAL, 70, 1.0);
+    }
+
+    @Override
+    protected void applySelfEffects(Pokemon pokemon) {
+        Status condition = pokemon.getCondition();
+        if (condition == Status.BURN || condition == Status.POISON || condition == Status.PARALYZE) {
+            double currentAtk = pokemon.getStat(Stat.ATTACK);
+            Effect effect = new Effect().stat(Stat.ATTACK, (int)currentAtk * 2);
+            pokemon.addEffect(effect);
+        }
+    }
+
+    @Override
+    protected String describe() {
+        return "использует Facade";
+    }
+}
