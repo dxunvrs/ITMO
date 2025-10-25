@@ -4,7 +4,7 @@ import ru.ifmo.se.pokemon.*;
 
 public class Facade extends PhysicalMove{
     public Facade() {
-        super(Type.NORMAL, 70, 1.0);
+        super(Type.NORMAL, 70, 100);
     }
 
     @Override
@@ -12,7 +12,7 @@ public class Facade extends PhysicalMove{
         Status condition = pokemon.getCondition();
         if (condition == Status.BURN || condition == Status.POISON || condition == Status.PARALYZE) {
             double currentAtk = pokemon.getStat(Stat.ATTACK);
-            Effect effect = new Effect().stat(Stat.ATTACK, (int)currentAtk * 2);
+            Effect effect = new Effect().stat(Stat.ATTACK, (int) currentAtk * 2);
             pokemon.addEffect(effect);
         }
     }

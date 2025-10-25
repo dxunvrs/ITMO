@@ -2,20 +2,20 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class DarkPulse extends SpecialMove {
-    public DarkPulse() {
-        super(Type.DARK, 80, 100);
+public class WaterPulse extends SpecialMove {
+    public WaterPulse() {
+        super(Type.WATER, 60, 100);
     }
 
     @Override
     protected void applyOppEffects(Pokemon pokemon) {
         if (Math.random() < 0.2) {
-            Effect.flinch(pokemon);
+            pokemon.confuse();
         }
     }
 
     @Override
     public String describe() {
-        return "использует Dark Pulse";
+        return "использует Water Pulse";
     }
 }
