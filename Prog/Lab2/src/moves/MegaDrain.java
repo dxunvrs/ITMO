@@ -2,7 +2,7 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class MegaDrain extends SpecialMove {
+public final class MegaDrain extends SpecialMove {
     public MegaDrain() {
         super(Type.GRASS, 40, 100);
     }

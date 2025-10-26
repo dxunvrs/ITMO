@@ -3,7 +3,7 @@ package pokemons;
 import ru.ifmo.se.pokemon.*;
 import moves.*;
 
-public class Furfrou extends Pokemon {
+public final class Furfrou extends Pokemon {
     public Furfrou(String name, int level) {
         super(name, level);
         setType(Type.NORMAL);

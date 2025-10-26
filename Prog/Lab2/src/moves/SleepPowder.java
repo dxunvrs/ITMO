@@ -2,7 +2,7 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class SleepPowder extends StatusMove {
+public final class SleepPowder extends StatusMove {
     public SleepPowder() {
         super(Type.GRASS, 0, 75);
     }

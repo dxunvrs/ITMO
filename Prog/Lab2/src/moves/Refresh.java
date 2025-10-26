@@ -2,7 +2,7 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class Refresh extends StatusMove {
+public final class Refresh extends StatusMove {
     public Refresh() {
         super(Type.NORMAL, 0, 100);
     }

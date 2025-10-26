@@ -2,7 +2,7 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class ShadowBall extends SpecialMove {
+public final class ShadowBall extends SpecialMove {
     public ShadowBall() {
         super(Type.GHOST, 80, 100);
     }

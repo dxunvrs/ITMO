@@ -3,7 +3,7 @@ package pokemons;
 import moves.*;
 import ru.ifmo.se.pokemon.*;
 
-public class Bellossom extends Gloom {
+public final class Bellossom extends Gloom {
     public Bellossom(String name, int level) {
         super(name,level);
         setType(Type.GRASS);

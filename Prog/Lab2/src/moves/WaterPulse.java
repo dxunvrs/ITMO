@@ -2,7 +2,7 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class WaterPulse extends SpecialMove {
+public final class WaterPulse extends SpecialMove {
     public WaterPulse() {
         super(Type.WATER, 60, 100);
     }

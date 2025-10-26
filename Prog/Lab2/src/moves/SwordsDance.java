@@ -2,7 +2,7 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class SwordsDance extends StatusMove {
+public final class SwordsDance extends StatusMove {
     public SwordsDance() {
         super(Type.NORMAL, 0, 100);
     }

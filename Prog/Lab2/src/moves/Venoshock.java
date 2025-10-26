@@ -2,7 +2,7 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class Venoshock extends SpecialMove {
+public final class Venoshock extends SpecialMove {
     public Venoshock() {
         super(Type.POISON, 65, 100);
     }

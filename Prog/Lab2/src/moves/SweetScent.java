@@ -2,7 +2,7 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class SweetScent extends StatusMove {
+public final class SweetScent extends StatusMove {
     public SweetScent() {
         super(Type.NORMAL, 0, 100);
     }

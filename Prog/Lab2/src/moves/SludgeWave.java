@@ -2,7 +2,7 @@ package moves;
 
 import ru.ifmo.se.pokemon.*;
 
-public class SludgeWave extends SpecialMove {
+public final class SludgeWave extends SpecialMove {
     public SludgeWave() {
         super(Type.POISON, 95, 100);
     }
