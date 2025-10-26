@@ -1,6 +1,6 @@
 package pokemons;
 
-import moves.*;
+import moves.status.*;
 
 public class Gloom extends Oddish {
     public Gloom(String name, int level) {

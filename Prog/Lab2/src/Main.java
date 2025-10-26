@@ -1,5 +1,4 @@
 import ru.ifmo.se.pokemon.*;
-import moves.*;
 import pokemons.*;
 
 public class Main {

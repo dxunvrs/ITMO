@@ -1,7 +1,7 @@
 package pokemons;
 
 import ru.ifmo.se.pokemon.*;
-import moves.*;
+import moves.special.*;
 
 public class Clauncher extends Pokemon {
     public Clauncher(String name, int level) {

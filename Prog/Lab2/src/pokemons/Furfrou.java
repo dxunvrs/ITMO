@@ -1,7 +1,9 @@
 package pokemons;
 
 import ru.ifmo.se.pokemon.*;
-import moves.*;
+import moves.physical.*;
+import moves.status.*;
+import moves.special.*;
 
 public final class Furfrou extends Pokemon {
     public Furfrou(String name, int level) {

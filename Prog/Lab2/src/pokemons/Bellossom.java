@@ -1,6 +1,6 @@
 package pokemons;
 
-import moves.*;
+import moves.status.*;
 import ru.ifmo.se.pokemon.*;
 
 public final class Bellossom extends Gloom {

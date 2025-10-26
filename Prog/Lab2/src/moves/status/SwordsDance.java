@@ -1,11 +1,9 @@
-package moves;
+package moves.status;
 
 import ru.ifmo.se.pokemon.*;
 
 public final class SwordsDance extends StatusMove {
-    public SwordsDance() {
-        super(Type.NORMAL, 0, 100);
-    }
+    public SwordsDance() { super(Type.NORMAL, 0, 100); }
 
     @Override
     protected void applySelfEffects(Pokemon pokemon) {

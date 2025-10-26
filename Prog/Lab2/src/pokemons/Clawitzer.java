@@ -1,6 +1,6 @@
 package pokemons;
 
-import moves.*;
+import moves.special.*;
 
 public final class Clawitzer extends Clauncher {
     public Clawitzer(String name, int level) {

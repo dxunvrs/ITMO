@@ -1,7 +1,8 @@
 package pokemons;
 
 import ru.ifmo.se.pokemon.*;
-import moves.*;
+import moves.status.*;
+import moves.special.*;
 
 public class Oddish extends Pokemon {
     public Oddish(String name, int level) {
