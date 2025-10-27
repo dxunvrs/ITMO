@@ -11,7 +11,7 @@ public final class Refresh extends StatusMove {
     protected void applySelfEffects(Pokemon pokemon) {
         Status condition = pokemon.getCondition();
         if (condition == Status.BURN || condition == Status.POISON || condition == Status.PARALYZE) {
-            Effect effect = new Effect().condition(Status.NORMAL);
+            Effect effect = new Effect().condition(Status.NORMAL).turns(1);
             pokemon.setCondition(effect);
         }
     }

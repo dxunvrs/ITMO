@@ -11,7 +11,7 @@ public final class Facade extends PhysicalMove{
     protected void applySelfEffects(Pokemon pokemon) {
         Status condition = pokemon.getCondition();
         if (condition == Status.BURN || condition == Status.POISON || condition == Status.PARALYZE) {
-            Effect effect = new Effect().stat(Stat.ATTACK, 2);
+            Effect effect = new Effect().stat(Stat.ATTACK, 2).turns(1);
             pokemon.addEffect(effect);
         }
     }

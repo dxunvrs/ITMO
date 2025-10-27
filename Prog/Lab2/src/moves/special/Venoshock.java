@@ -11,7 +11,7 @@ public final class Venoshock extends SpecialMove {
     protected void applyOppDamage(Pokemon pokemon, double damage) {
         Status condition = pokemon.getCondition();
         if (condition == Status.POISON) {
-            Effect effect = new Effect().stat(Stat.HP, 2 * (int) damage);
+            Effect effect = new Effect().stat(Stat.HP, 2 * (int) damage).turns(1);
             pokemon.addEffect(effect);
         }
     }

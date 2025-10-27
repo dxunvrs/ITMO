@@ -9,7 +9,7 @@ public final class SleepPowder extends StatusMove {
 
     @Override
     protected void applyOppEffects(Pokemon pokemon) {
-        Effect effect = new Effect().condition(Status.SLEEP);
+        Effect effect = new Effect().condition(Status.SLEEP).turns(1);
         pokemon.setCondition(effect);
     }
 
