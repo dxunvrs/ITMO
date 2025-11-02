@@ -3,7 +3,6 @@
 # RON -> TOML
 # Десериализация - RON -> бинарный объект
 
-
 def deserialize() -> None:
     # открываем файл и добавляем строки в массив
     with open("schedule.ron", "r") as file:
