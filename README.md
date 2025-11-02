@@ -5,8 +5,9 @@
 > Баллы и ход обучения в ИТМО
 
 # В работе
-[Информатика лаба 4](https://github.com/dxunvrs/ITMO/tree/inf-lab4/Inf)  
-[Программирование лаба 2](https://github.com/dxunvrs/ITMO/tree/prog-lab2/Prog)
+[Информатика лаба 4](https://github.com/dxunvrs/ITMO/tree/inf-lab-4/Inf)  
+[Программирование лаба 2](https://github.com/dxunvrs/ITMO/tree/prog-lab-2/Prog)
+[ОПД лаба 2](https://github.com/dxunvrs/ITMO/tree/opd-lab-2)  
 
 # Ссылка на отчеты(гугл диск)
 Позже
