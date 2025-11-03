@@ -6,16 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="129ad460-1a62-48f0-8ad4-25bc4dc834ed" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/physical/Facade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/physical/Facade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/special/MegaDrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/special/MegaDrain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/special/ShadowBall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/special/ShadowBall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/special/SludgeWave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/special/SludgeWave.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/special/Venoshock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/special/Venoshock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/status/Refresh.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/status/Refresh.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/status/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/status/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/status/SleepPowder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/status/SleepPowder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/status/SweetScent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/status/SweetScent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/status/SwordsDance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/status/SwordsDance.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,24 +30,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Battle.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.Test.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "prog-lab-2",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/roma/Study/Prog/Lab2/lib/Pokemon.jar",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Battle.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Test.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;prog-lab-2&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/roma/Study/Prog/Lab2/lib/Pokemon.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="129ad460-1a62-48f0-8ad4-25bc4dc834ed" name="Changes" comment="" />
