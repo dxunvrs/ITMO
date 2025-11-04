@@ -1,0 +1,12 @@
+Name ( //comment
+    /*
+    многострочный
+    комментарий
+    */
+    a: 2,
+    tuple: (1,2,3),
+    unnamed: (
+        1: 2,
+        2: 4
+    ) // ещё comment
+) // comment
