@@ -24,7 +24,7 @@ class XMLConverter:
 
     def convert_to_xml(self):
         self.parse_file()
-        self.content = self.create_tree(self.parsed_object, "root") # вызываем глаыную функцию
+        self.content = self.create_tree(self.parsed_object, "root") # вызываем главную функцию
 
         with open(self.output_path, "w") as output_file:
             output_file.write(self.content) # сохраняем результат

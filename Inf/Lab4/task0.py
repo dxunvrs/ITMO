@@ -233,5 +233,5 @@ class Parser:
         return pair
 
 if __name__ == "__main__":
-    parser: Parser = Parser(file_path="test.ron")
+    parser: Parser = Parser(file_path="schedule.ron")
     print(parser.parse())
