@@ -3,55 +3,55 @@
 	<Schedule>
 		<Monday>
 			<n1>
-				<Subject>Физра</Subject>
-				<Teacher>Варушин А.В.</Teacher>
+				<Subject>Physical Education</Subject>
+				<Teacher>Varushin A.V.</Teacher>
 				<Start>13.30</Start>
 				<End>15.00</End>
 				<Class>
 					<item>4402/1</item>
-					<item>Ломо</item>
+					<item>Lomo</item>
 				</Class>
 			</n1>
 		</Monday>
 		<Thursday>
 			<n1>
-				<Subject>Информатика</Subject>
-				<Teacher>Миняев И.А.</Teacher>
+				<Subject>Informatics</Subject>
+				<Teacher>Minyaev I.A.</Teacher>
 				<Start>11.30</Start>
 				<End>13.00</End>
 				<Class>
 					<item>1328</item>
-					<item>ГК</item>
+					<item>Main</item>
 				</Class>
 			</n1>
 			<n2>
-				<Subject>Информатика</Subject>
-				<Teacher>Миняев И.А.</Teacher>
+				<Subject>Informatics</Subject>
+				<Teacher>Minyaev I.A.</Teacher>
 				<Start>13.30</Start>
 				<End>15.00</End>
 				<Class>
 					<item>1328</item>
-					<item>ГК</item>
+					<item>Main</item>
 				</Class>
 			</n2>
 			<n3>
-				<Subject>ОПД</Subject>
-				<Teacher>Ткешелашвили Н.М.</Teacher>
+				<Subject>OPD</Subject>
+				<Teacher>Tkeshelashvili N.M.</Teacher>
 				<Start>15.30</Start>
 				<End>17.00</End>
 				<Class>
 					<item>2435/3</item>
-					<item>ГК</item>
+					<item>Main</item>
 				</Class>
 			</n3>
 			<n4>
-				<Subject>ОПД</Subject>
-				<Teacher>Ткешелашвили Н.М.</Teacher>
+				<Subject>OPD</Subject>
+				<Teacher>Tkeshelashvili N.M.</Teacher>
 				<Start>17.10</Start>
 				<End>18.40</End>
 				<Class>
 					<item>2435/3</item>
-					<item>ГК</item>
+					<item>Main</item>
 				</Class>
 			</n4>
 		</Thursday>

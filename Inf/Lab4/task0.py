@@ -1,6 +1,6 @@
 # 501595%132=127 Дни: понедельник, суббота - не уд. требованиям
 # 127+8=135, 135%132=3 Дни: понедельник, четверг
-# RON -> TOML
+# RON -> YAML
 # Десериализация - RON -> parsed_object
 
 import sys
@@ -74,6 +74,10 @@ class Parser:
         return self.content[self.pos+a] # возвращаем текущий символ
 
     def error(self, message:str) -> None:
+        error_string: str = ""
+        char_before: int = int(self.pos * 0.5)
+        char_after: int = self.pos + int((self.content_len - self.pos)*0.5)
+        print(self.content[char_before:char_after])
         print(message)
         sys.exit()
 
@@ -91,7 +95,11 @@ class Parser:
 
         while self.char() in self.digits:
             int_part += self.char() # накапливаем целую часть
-            self.pos += 1
+
+            if self.pos+1 < self.content_len: # для случая если весь файл - число
+                self.pos += 1
+            else:
+                break
 
         if self.char() == ".": # если есть точка, то начинаем копить дробную часть
             self.pos += 1
@@ -100,7 +108,11 @@ class Parser:
 
             while self.char() in self.digits:
                 frac_part += self.char()
-                self.pos += 1
+
+                if self.pos+1 < self.content_len: # для случая если весь файл - число
+                    self.pos += 1
+                else:
+                    break
 
         if frac_part: # возвращаем результат
             return float(f"{int_part}.{frac_part}")
@@ -116,6 +128,7 @@ class Parser:
             self.pos += 1
             if self.pos == self.content_len:
                 self.error('Expect "')
+
         self.pos += 1
         return string
 
@@ -124,7 +137,11 @@ class Parser:
 
         while self.char() not in " \n:()[]{}/*.,": # проверяем входит ли символ в допустимые символы
             name += self.char()
-            self.pos += 1
+
+            if self.pos+1 < self.content_len: # чтобы не выходило за пределы
+                self.pos += 1
+            else:
+                break
         return name
 
     def parse_list(self) -> list:
@@ -150,7 +167,7 @@ class Parser:
         self.pos += 1
         return arr
 
-    def parse_struct_or_bool(self, mode="name") -> dict | bool:
+    def parse_struct_or_bool(self, mode:str="name") -> dict | bool:
         # struct ::= Name() | Name(key: value) | Name(key: value, key: value, ...)
         name: str = ""
         if mode=="name":

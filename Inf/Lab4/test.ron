@@ -1,19 +1,5 @@
-Falseword (
-    a: 2,
-    list: [1, 2, 3, true, "str"],
-    unnamed: (
-        a: 2,
-        b: 4
-    ),
-    boolean: false,
-    test_arr: [1,2 ,3],
-    slovar: {
-        "name": "roma",
-        "age": 17
-    },
-    test_list: [
-        {aga: 1, agb: 2},
-        1,
-        false
-    ]
-)
+{
+    "14" : "test",
+    "2" : "aboba",
+    "3": "haha"
+}

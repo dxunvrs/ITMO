@@ -1,0 +1,42 @@
+Monday:
+  '1':
+    Class:
+    - 4402/1
+    - Lomo
+    End: '15.00'
+    Start: '13.30'
+    Subject: Physical Education
+    Teacher: Varushin A.V.
+Thursday:
+  '1':
+    Class:
+    - '1328'
+    - Main
+    End: '13.00'
+    Start: '11.30'
+    Subject: Informatics
+    Teacher: Minyaev I.A.
+  '2':
+    Class:
+    - '1328'
+    - Main
+    End: '15.00'
+    Start: '13.30'
+    Subject: Informatics
+    Teacher: Minyaev I.A.
+  '3':
+    Class:
+    - 2435/3
+    - Main
+    End: '17.00'
+    Start: '15.30'
+    Subject: OPD
+    Teacher: Tkeshelashvili N.M.
+  '4':
+    Class:
+    - 2435/3
+    - Main
+    End: '18.40'
+    Start: '17.10'
+    Subject: OPD
+    Teacher: Tkeshelashvili N.M.

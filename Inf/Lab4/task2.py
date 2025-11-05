@@ -1,10 +1,10 @@
 # 501595%132=127 Дни: понедельник, суббота - не уд. требованиям
 # 127+8=135, 135%132=3 Дни: понедельник, четверг
-# RON -> TOML
+# RON -> YAML
 # Использование готовых библиотек
 
 import pyron
-import toml
+import yaml
 
 class Converter:
     parsed_object: dict = {}
@@ -14,14 +14,17 @@ class Converter:
 
     def parse_file(self):
         with open(self.file_path, "r") as file:
-            self.parsed_object = pyron.load(self.file_path)
+            try:
+                self.parsed_object = pyron.load(self.file_path)
+            except Exception as error:
+                print(error)
 
-    def convert_to_toml(self):
+    def convert_to_yaml(self):
         self.parse_file()
         with open(self.output_path, "w") as output_file:
-            output: str = toml.dumps(self.parsed_object)
+            output: str = yaml.dump(self.parsed_object)
             output_file.write(output)
 
 if __name__ == "__main__":
-    converter = Converter("schedule.ron", "output.toml")
-    converter.convert_to_toml()
+    converter: Converter = Converter("schedule.ron", "output_library.yaml")
+    converter.convert_to_yaml()
