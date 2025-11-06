@@ -29,7 +29,7 @@ class Parser:
             return self.parse_dict()
         elif self.char() == "(": # парсим либо структуру без имени
             return self.parse_struct_or_bool(mode="unnamed")
-        elif self.char() not in " \n:./*": # парсим структуру с именем
+        elif self.char() not in " \n:./*,": # парсим структуру с именем
             return self.parse_struct_or_bool()
         else:
             return self.error(f"Unexpected symbol {self.char()}")
