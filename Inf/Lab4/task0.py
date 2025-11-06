@@ -29,7 +29,7 @@ class Parser:
             return self.parse_dict()
         elif self.char() == "(": # парсим либо структуру без имени
             return self.parse_struct_or_bool(mode="unnamed")
-        elif self.char() not in " \n:./*,": # парсим структуру с именем
+        elif self.char() not in " \n:./*,\t": # парсим структуру с именем
             return self.parse_struct_or_bool()
         else:
             return self.error(f"Unexpected symbol {self.char()}")
@@ -67,7 +67,7 @@ class Parser:
         return new_content
 
     def skip_space(self) -> None:
-        while self.content[self.pos] in " \n": # пропускаем пробелы и переносы строк
+        while self.content[self.pos] in " \n\t": # пропускаем пробелы и переносы строк
             self.pos += 1
 
     def char(self, a:int=0) -> str:
@@ -135,7 +135,7 @@ class Parser:
     def parse_name(self) -> str:
         name = ""
 
-        while self.char() not in " \n:()[]{}/*.,": # проверяем входит ли символ в допустимые символы
+        while self.char() not in " \n:()[]{}/*.,\t": # проверяем входит ли символ в допустимые символы
             name += self.char()
 
             if self.pos+1 < self.content_len: # чтобы не выходило за пределы
