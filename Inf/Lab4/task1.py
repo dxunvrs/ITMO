@@ -1,7 +1,7 @@
 # 501595%132=127 Дни: понедельник, суббота - не уд. требованиям
 # 127+8=135, 135%132=3 Дни: понедельник, четверг
 # RON -> YAML
-# Сериализация - parsed_object -> YAML
+# Сериализация - binary_object -> YAML
 
 from task0 import Parser
 
@@ -49,6 +49,8 @@ class Converter:
                 return f"{spaces}{value}"
             return f"{spaces}{name}: {value}" # иначе вывод key: value
 
+class BinarySerializer:
+    pass
 
 if __name__ == "__main__":
     converter: Converter = Converter("schedule.ron", "output_my.yaml")

@@ -1,9 +1,10 @@
 # 501595%132=127 Дни: понедельник, суббота - не уд. требованиям
 # 127+8=135, 135%132=3 Дни: понедельник, четверг
 # RON -> YAML
-# Десериализация - RON -> parsed_object
+# Десериализация - RON -> binary_object
 
 import sys
+import pickle
 
 class Parser:
     pos: int = 0
@@ -249,6 +250,61 @@ class Parser:
             self.error("Expect :")
         return pair
 
+class BinaryDeserializer:
+    types = {"bool":"01",
+             "int": "02",
+             "float": "03",
+             "string": "04",
+             "list": "05",
+             "dict": "06"
+             }
+
+    def __init__(self, parsed_object, output_path:str):
+        self.parsed_object = parsed_object
+        self.output_path = output_path
+        self.content = ""
+
+    def deserialize(self):
+        self.content = self.deserialize_value(self.parsed_object)
+        print(self.content)
+        with open(self.output_path, "w") as output_file:
+            output_file.write(self.content)
+
+    def deserialize_value(self, value) -> str:
+        if isinstance(value, bool):
+            if value:
+                return f"{self.types['bool'] }01"
+            else:
+                return f"{self.types['bool']} 00"
+        elif isinstance(value, int):
+            int_bytes = f"{value:08x}"
+            for i in range(0, len(int_bytes), 2):
+                print(int_bytes[i])
+            return f"{self.types['int']}{value:08x}"
+        #elif isinstance(value, float):
+            #return f"{self.types['float']}{int(value):08x}{int((value-int(value))):08x}"
+        elif isinstance(value, str):
+            string_bytes = ""
+            for char in value:
+                string_bytes += str(ord(char)) + " "
+            return f"{self.types['string']} {len(value):08x} {string_bytes}"
+        elif isinstance(value, list):
+            list_bytes = f"{self.types['list']} {len(value):08x} "
+            for element in value:
+                list_bytes += self.deserialize_value(element) + " "
+            return list_bytes
+        elif isinstance(value, dict):
+            dict_bytes = f"{self.types['dict']} {len(value.keys()):08x} "
+            for k,v in value.items():
+                dict_bytes = f"{self.deserialize_value(k)} {self.deserialize_value(v)} "
+            return dict_bytes
+        else:
+            print("Invalid data")
+            sys.exit()
+
+
 if __name__ == "__main__":
     parser: Parser = Parser(file_path="schedule.ron")
-    print(parser.parse())
+    parsed_object = parser.parse()
+    binary_deserializer = BinaryDeserializer(parsed_object, "output_my.bin")
+    binary_deserializer.deserialize()
