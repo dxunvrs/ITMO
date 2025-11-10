@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="129ad460-1a62-48f0-8ad4-25bc4dc834ed" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/special/DarkPulse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/special/DarkPulse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/moves/status/Refresh.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/moves/status/Refresh.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +40,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "prog-lab-2",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/roma/Study/Prog/Lab2/lib/Pokemon.jar",
     "project.structure.last.edited": "Project",
