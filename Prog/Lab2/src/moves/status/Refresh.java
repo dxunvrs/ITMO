@@ -20,4 +20,6 @@ public final class Refresh extends StatusMove {
     public String describe() {
         return "использует Refresh";
     }
+    
+
 }
