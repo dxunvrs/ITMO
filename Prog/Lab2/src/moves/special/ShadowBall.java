@@ -9,7 +9,7 @@ public final class ShadowBall extends SpecialMove {
 
     @Override
     protected void applyOppEffects(Pokemon pokemon) {
-        Effect effect = new Effect().chance(0.2).turns(1).stat(Stat.SPECIAL_DEFENSE, -1);
+        Effect effect = new Effect().chance(0.2).stat(Stat.SPECIAL_DEFENSE, -1).turns(1);
         pokemon.addEffect(effect);
     }
 

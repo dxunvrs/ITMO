@@ -9,7 +9,7 @@ public final class MegaDrain extends SpecialMove {
 
     @Override
     protected void applySelfDamage(Pokemon pokemon, double damage) {
-        Effect effect = new Effect().stat(Stat.HP, (int) damage / 2);
+        Effect effect = new Effect().stat(Stat.HP, -1 * (int) damage / 2).turns(1);
         pokemon.addEffect(effect);
     }
 

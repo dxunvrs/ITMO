@@ -10,7 +10,8 @@ public final class Rest extends StatusMove {
     @Override
     protected void applySelfEffects(Pokemon pokemon) {
         double maxHP = pokemon.getStat(Stat.HP);
-        Effect effect = new Effect().condition(Status.SLEEP).turns(2).stat(Stat.HP, (int) maxHP);
+        double currentHP = pokemon.getHP();
+        Effect effect = new Effect().condition(Status.SLEEP).stat(Stat.HP, -1 * (int) (maxHP - currentHP)).turns(2);
         pokemon.addEffect(effect);
     }
 
