@@ -19,5 +19,3 @@ public class Main {
         battle.go();
     }
 }
-
-
