@@ -2,6 +2,7 @@
 # 127+8=135, 135%132=3 Дни: понедельник, четверг
 # RON -> YAML
 # Сериализация - binary_object -> YAML
+import sys
 
 from task0 import Parser
 
@@ -50,18 +51,49 @@ class Converter:
 
 class BinarySerializer:
     def __init__(self, file_path):
-        self.file_path = file_path
-        self.content: str = ""
-        self.bin_arr: list = []
+        self.pos = 0
+
+        with open(file_path, "r") as file:
+            self.content: str = file.read()
+        self.bin_arr: list = self.content.split()
+
+    def byte(self) -> str:
+        return self.bin_arr[self.pos]
+
+    def error(self):
+        print("Error")
+        sys.exit()
 
     def serialize(self):
-        with open(self.file_path, "r") as file:
-            self.content = file.read()
-        self.bin_arr = self.content.split()
-        print(self.bin_arr)
-        return "test"
+        if self.byte() == f"{1:08b}":
+            return self.serialize_boolean()
+        elif self.byte() == f"{2:08b}":
+            return self.serialize_int()
 
-    def serialize_value(self):
+    def serialize_boolean(self):
+        self.pos += 1
+        if self.byte() == f"{1:08b}":
+            return True
+        elif self.byte() == f"{0:08b}":
+            return False
+        else:
+            self.error()
+
+    def serialize_int(self):
+        self.pos += 1
+
+        return int(self.byte(), 2)
+
+    def serialize_float(self):
+        pass
+
+    def serialize_string(self):
+        pass
+
+    def serialize_list(self):
+        pass
+
+    def serialize_dict(self):
         pass
 
 if __name__ == "__main__":
