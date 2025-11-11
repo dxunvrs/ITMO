@@ -6,18 +6,17 @@
 from task0 import Parser
 
 class Converter:
-    def __init__(self, file_path:str, output_path:str) -> None:
+    def __init__(self, output_path:str, parsed_object):
         self.output_path: str = output_path
-        self.file_path: str = file_path
-        self.parsed_object = None
+        self.parsed_object = parsed_object
         self.content: str = ""
 
-    def parse_file(self) -> None:
-        parser: Parser = Parser(self.file_path)
-        self.parsed_object = parser.parse()
+    # def parse_file(self) -> None:
+    #     parser: Parser = Parser(self.file_path)
+    #     self.parsed_object = parser.parse()
 
     def convert_to_yaml(self) -> None:
-        self.parse_file() # парсим файл кодом из предыдущего задания
+        # self.parse_file() # парсим файл кодом из предыдущего задания
         self.content = self.create_tree(self.parsed_object, "") # вызываем главный метод
 
         with open(self.output_path, "w") as output_file:
@@ -50,11 +49,24 @@ class Converter:
             return f"{spaces}{name}: {value}" # иначе вывод key: value
 
 class BinarySerializer:
-    pass
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.content: str = ""
+        self.bin_arr: list = []
+
+    def serialize(self):
+        with open(self.file_path, "r") as file:
+            self.content = file.read()
+        self.bin_arr = self.content.split()
+        print(self.bin_arr)
+        return "test"
+
+    def serialize_value(self):
+        pass
 
 if __name__ == "__main__":
-    converter: Converter = Converter("schedule.ron", "output_my.yaml")
+    binary_serializer : BinarySerializer = BinarySerializer("output_my.bin")
+    parsed_object = binary_serializer.serialize()
+    converter: Converter = Converter("output_my.yaml", parsed_object)
     converter.convert_to_yaml()
     # мой конвертер умеет в русский язык
-    # converter_ru: Converter = Converter("schedule_ru.ron", "output_my.yaml")
-    # converter_ru.convert_to_yaml()

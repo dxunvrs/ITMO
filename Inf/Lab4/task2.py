@@ -8,7 +8,7 @@ import yaml
 
 class Converter:
     parsed_object: dict = {}
-    def __init__(self, file_path:str, output_path:str) -> None:
+    def __init__(self, file_path:str, output_path:str):
         self.output_path: str = output_path
         self.file_path: str = file_path
 

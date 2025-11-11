@@ -7,7 +7,7 @@ import sys
 from task0 import Parser
 
 class XMLConverter:
-    def __init__(self, file_path:str, output_path:str) -> None:
+    def __init__(self, file_path:str, output_path:str):
         self.output_path: str = output_path
         self.file_path: str = file_path
         self.parsed_object = None

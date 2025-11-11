@@ -251,12 +251,12 @@ class Parser:
         return pair
 
 class BinaryDeserializer:
-    types = {"bool":"01",
-             "int": "02",
-             "float": "03",
-             "string": "04",
-             "list": "05",
-             "dict": "06"
+    types = {"bool":1,
+             "int": 2,
+             "float": 3,
+             "string": 4,
+             "list": 5,
+             "dict": 6
              }
 
     def __init__(self, parsed_object, output_path:str):
@@ -266,37 +266,36 @@ class BinaryDeserializer:
 
     def deserialize(self):
         self.content = self.deserialize_value(self.parsed_object)
-        print(self.content)
+
         with open(self.output_path, "w") as output_file:
             output_file.write(self.content)
 
     def deserialize_value(self, value) -> str:
         if isinstance(value, bool):
             if value:
-                return f"{self.types['bool'] }01"
+                return f"{self.types['bool']:08b} {1:08b} "
             else:
-                return f"{self.types['bool']} 00"
+                return f"{self.types['bool']:08b} {0:08b} "
         elif isinstance(value, int):
-            int_bytes = f"{value:08x}"
-            for i in range(0, len(int_bytes), 2):
-                print(int_bytes[i])
-            return f"{self.types['int']}{value:08x}"
+            # int_bytes = f"{value:b}"
+            return f"{self.types['int']:08b} {value:08b} "
         #elif isinstance(value, float):
             #return f"{self.types['float']}{int(value):08x}{int((value-int(value))):08x}"
         elif isinstance(value, str):
             string_bytes = ""
             for char in value:
-                string_bytes += str(ord(char)) + " "
-            return f"{self.types['string']} {len(value):08x} {string_bytes}"
+                # string_bytes += str(ord(char)) + " "
+                string_bytes += f"{ord(char):08b} "
+            return f"{self.types['string']:08b} {len(value):08b} {string_bytes}"
         elif isinstance(value, list):
-            list_bytes = f"{self.types['list']} {len(value):08x} "
+            list_bytes = f"{self.types['list']:08b} {len(value):08b} "
             for element in value:
-                list_bytes += self.deserialize_value(element) + " "
+                list_bytes += self.deserialize_value(element)
             return list_bytes
         elif isinstance(value, dict):
-            dict_bytes = f"{self.types['dict']} {len(value.keys()):08x} "
+            dict_bytes = f"{self.types['dict']:08b} {len(value.keys()):08b} "
             for k,v in value.items():
-                dict_bytes = f"{self.deserialize_value(k)} {self.deserialize_value(v)} "
+                dict_bytes = f"{self.deserialize_value(k)}{self.deserialize_value(v)}"
             return dict_bytes
         else:
             print("Invalid data")
@@ -304,7 +303,9 @@ class BinaryDeserializer:
 
 
 if __name__ == "__main__":
-    parser: Parser = Parser(file_path="schedule.ron")
+    parser: Parser = Parser(file_path="test.ron")
     parsed_object = parser.parse()
     binary_deserializer = BinaryDeserializer(parsed_object, "output_my.bin")
     binary_deserializer.deserialize()
+    #print(' '.join(format(ord(x), 'b') for x in "абоба"))
+    #print(f"{123:b}")
