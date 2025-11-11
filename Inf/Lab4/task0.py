@@ -295,7 +295,7 @@ class BinaryDeserializer:
         elif isinstance(value, dict):
             dict_bytes = f"{self.types['dict']:08b} {len(value.keys()):08b} "
             for k,v in value.items():
-                dict_bytes = f"{self.deserialize_value(k)}{self.deserialize_value(v)}"
+                dict_bytes += f"{self.deserialize_value(k)}{self.deserialize_value(v)}"
             return dict_bytes
         else:
             print("Invalid data")
@@ -303,7 +303,7 @@ class BinaryDeserializer:
 
 
 if __name__ == "__main__":
-    parser: Parser = Parser(file_path="test.ron")
+    parser: Parser = Parser(file_path="schedule.ron")
     parsed_object = parser.parse()
     binary_deserializer = BinaryDeserializer(parsed_object, "output_my.bin")
     binary_deserializer.deserialize()

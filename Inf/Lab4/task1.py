@@ -69,6 +69,16 @@ class BinarySerializer:
             return self.serialize_boolean()
         elif self.byte() == f"{2:08b}":
             return self.serialize_int()
+        elif self.byte() == f"{3:08b}":
+            return self.serialize_float()
+        elif self.byte() == f"{4:08b}":
+            return self.serialize_string()
+        elif self.byte() == f"{5:08b}":
+            return self.serialize_list()
+        elif self.byte() == f"{6:08b}":
+            return self.serialize_dict()
+        else:
+            print(self.byte())
 
     def serialize_boolean(self):
         self.pos += 1
@@ -82,23 +92,51 @@ class BinarySerializer:
     def serialize_int(self):
         self.pos += 1
 
-        return int(self.byte(), 2)
+        return int(self.byte(), 2) # вот тут добавить try
 
     def serialize_float(self):
         pass
 
     def serialize_string(self):
-        pass
+        self.pos += 1
+        string_len = int(self.byte(), 2)
+        string = ""
+        for i in range(string_len):
+            self.pos += 1
+            string += chr(int(self.byte(),2))
+        return string
 
     def serialize_list(self):
-        pass
+        self.pos += 1
+        arr_len = int(self.byte(), 2)
+        arr = []
+        for i in range(arr_len):
+            self.pos += 1
+            arr.append(self.serialize())
+        return arr
 
     def serialize_dict(self):
-        pass
+        self.pos += 1
+        dictionary_len = int(self.byte(), 2)
+        dictionary = {}
+        for i in range(dictionary_len): # сюда по-любому проверку завезти
+            self.pos += 1
+            pair = self.serialize_pair()
+            dictionary[pair[0]] = pair[1]
+        return dictionary
+
+    def serialize_pair(self):
+        pair = [self.serialize()]
+        print(pair)
+        self.pos += 1
+        pair.append(self.serialize())
+        return pair
 
 if __name__ == "__main__":
     binary_serializer : BinarySerializer = BinarySerializer("output_my.bin")
     parsed_object = binary_serializer.serialize()
+    print(parsed_object)
+    # print(binary_serializer.byte())
     converter: Converter = Converter("output_my.yaml", parsed_object)
     converter.convert_to_yaml()
     # мой конвертер умеет в русский язык

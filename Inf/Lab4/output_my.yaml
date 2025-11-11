@@ -1,1 +1,43 @@
-123
+ Schedule:
+  Monday:
+   1:
+    Subject: Physical Education
+    Teacher: Varushin A.V.
+    Start: 13.30
+    End: 15.00
+    Class:
+     - 4402/1
+     - Lomo
+  Thursday:
+   1:
+    Subject: Informatics
+    Teacher: Minyaev I.A.
+    Start: 11.30
+    End: 13.00
+    Class:
+     - 1328
+     - Main
+   2:
+    Subject: Informatics
+    Teacher: Minyaev I.A.
+    Start: 13.30
+    End: 15.00
+    Class:
+     - 1328
+     - Main
+   3:
+    Subject: OPD
+    Teacher: Tkeshelashvili N.M.
+    Start: 15.30
+    End: 17.00
+    Class:
+     - 2435/3
+     - Main
+   4:
+    Subject: OPD
+    Teacher: Tkeshelashvili N.M.
+    Start: 17.10
+    End: 18.40
+    Class:
+     - 2435/3
+     - Main
