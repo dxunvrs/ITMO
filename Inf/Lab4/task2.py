@@ -3,28 +3,59 @@
 # RON -> YAML
 # Использование готовых библиотек
 
+import sys
 import pyron
 import yaml
+import pickle
 
-class Converter:
-    parsed_object: dict = {}
-    def __init__(self, file_path:str, output_path:str):
-        self.output_path: str = output_path
-        self.file_path: str = file_path
+class Deserializer:
+    def __init__(self, file_path:str, bin_path:str):
+        self.file_path = file_path
+        self.bin_path = bin_path
+        self.parsed_object = None
 
-    def parse_file(self):
-        with open(self.file_path, "r") as file:
+    def parse(self):
+        try:
+            self.parsed_object = pyron.load(self.file_path)
+        except Exception as e:
+            print(e)
+            sys.exit()
+
+    def deserialize(self):
+        self.parse()
+        with open(self.bin_path, "wb") as bin_file:
             try:
-                self.parsed_object = pyron.load(self.file_path)
-            except Exception as error:
-                print(error)
+                print(pickle.dumps(self.parsed_object))
+                pickle.dump(self.parsed_object, bin_file)
+            except Exception as e:
+                print(e)
+                sys.exit()
+
+class Serializer:
+    def __init__(self, bin_path:str, output_path:str):
+        self.bin_path = bin_path
+        self.output_path = output_path
+        self.parsed_object = None
+
+    def serialize(self):
+        with open(self.bin_path, "rb") as bin_file:
+            try:
+                self.parsed_object = pickle.load(bin_file)
+            except Exception as e:
+                print(e)
+                sys.exit()
+        self.convert_to_yaml()
 
     def convert_to_yaml(self):
-        self.parse_file()
         with open(self.output_path, "w") as output_file:
-            output: str = yaml.dump(self.parsed_object)
-            output_file.write(output)
+            try:
+                output_file.write(yaml.dump(self.parsed_object))
+            except Exception as e:
+                print(e)
+                sys.exit()
 
 if __name__ == "__main__":
-    converter: Converter = Converter("schedule.ron", "output_library.yaml")
-    converter.convert_to_yaml()
+    deserializer: Deserializer = Deserializer("schedule.ron", "output_library.bin")
+    serializer: Serializer = Serializer("output_library.bin", "output_library.yaml")
+    deserializer.deserialize()
+    serializer.serialize()

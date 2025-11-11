@@ -4,20 +4,16 @@
 # Десериализация - RON -> binary_object
 
 import sys
-import pickle
 
 class Parser:
-    pos: int = 0
-    content: str = ""
-    content_len: int = 0
-    digits: str = "0123456789"
-
-    def __init__(self, file_path:str) -> None:
+    def __init__(self, file_path:str):
+        self.pos: int = 0
+        self.digits: str = "0123456789"
         with open(file_path, "r") as file:
             self.content = file.read()
-        self.delete_comments()
+        self.content = self.delete_comments()
 
-    def parse(self):
+    def parse(self) -> int | str | list | dict | bool | None:
         self.skip_space()
 
         if self.char() in self.digits+"-": # парсим число
@@ -35,9 +31,8 @@ class Parser:
         else:
             return self.error(f"Unexpected symbol {self.char()}")
 
-    def delete_comments(self) -> None:
-        new_content = ""
-        new_content_list = []
+    def delete_comments(self) -> str:
+        new_content_list: list = []
 
         for line in self.content.splitlines(): # удаляем одиночные комментарии
             for i in range(len(line)-1):
@@ -47,16 +42,15 @@ class Parser:
             else:
                 new_content_list.append(line)
 
-        new_content = "\n".join(new_content_list)
+        new_content: str = "\n".join(new_content_list)
 
         while "/*" in new_content: # пока есть начала многострочных комментариев удаляем их
             new_content = self.delete_multiline_comments(new_content)
 
-        self.content = new_content
-        self.content_len = len(new_content)
+        return new_content
 
     def delete_multiline_comments(self, cur_content:str) -> str:
-        new_content = ""
+        new_content: str = ""
         for i in range(len(cur_content)-1):
             if cur_content[i] + cur_content[i+1] == "/*":
                 for j in range(i+2, len(cur_content)-1):
@@ -75,9 +69,8 @@ class Parser:
         return self.content[self.pos+a] # возвращаем текущий символ
 
     def error(self, message:str) -> None:
-        error_string: str = ""
         char_before: int = int(self.pos * 0.5)
-        char_after: int = self.pos + int((self.content_len - self.pos)*0.5)
+        char_after: int = self.pos + int((len(self.content) - self.pos)*0.5)
         print(self.content[char_before:char_after])
         print(message)
         sys.exit()
@@ -97,7 +90,7 @@ class Parser:
         while self.char() in self.digits:
             int_part += self.char() # накапливаем целую часть
 
-            if self.pos+1 < self.content_len: # для случая если весь файл - число
+            if self.pos+1 < len(self.content): # для случая если весь файл - число
                 self.pos += 1
             else:
                 break
@@ -110,7 +103,7 @@ class Parser:
             while self.char() in self.digits:
                 frac_part += self.char()
 
-                if self.pos+1 < self.content_len: # для случая если весь файл - число
+                if self.pos+1 < len(self.content): # для случая если весь файл - число
                     self.pos += 1
                 else:
                     break
@@ -127,7 +120,7 @@ class Parser:
         while self.char() != '"':
             string += self.char()
             self.pos += 1
-            if self.pos == self.content_len:
+            if self.pos == len(self.content):
                 self.error('Expect "')
 
         self.pos += 1
@@ -139,7 +132,7 @@ class Parser:
         while self.char() not in " \n:()[]{}/*.,\t": # проверяем входит ли символ в допустимые символы
             name += self.char()
 
-            if self.pos+1 < self.content_len: # чтобы не выходило за пределы
+            if self.pos+1 < len(self.content): # чтобы не выходило за пределы
                 self.pos += 1
             else:
                 break
@@ -251,16 +244,8 @@ class Parser:
         return pair
 
 class BinaryDeserializer:
-    types = {"bool":1,
-             "int": 2,
-             "float": 3,
-             "string": 4,
-             "list": 5,
-             "dict": 6
-             }
-
-    def __init__(self, parsed_object, output_path:str):
-        self.parsed_object = parsed_object
+    def __init__(self, parsed, output_path:str):
+        self.parsed_object = parsed
         self.output_path = output_path
         self.content = ""
 
@@ -273,39 +258,47 @@ class BinaryDeserializer:
     def deserialize_value(self, value) -> str:
         if isinstance(value, bool):
             if value:
-                return f"{self.types['bool']:08b} {1:08b} "
+                return f"{1:08b} {1:08b} "
             else:
-                return f"{self.types['bool']:08b} {0:08b} "
+                return f"{1:08b} {0:08b} "
+
         elif isinstance(value, int):
-            # int_bytes = f"{value:b}"
-            return f"{self.types['int']:08b} {value:08b} "
-        #elif isinstance(value, float):
-            #return f"{self.types['float']}{int(value):08x}{int((value-int(value))):08x}"
+            if value >= 0:
+                return f"{2:08b} {0:08b} {value:08b} "
+            else:
+                return f"{2:08b} {1:08b} {abs(value):08b} "
+
+        elif isinstance(value, float):
+            if value >= 0:
+                return f"{3:08b} {0:08b} {int(value):08b} {int((value-int(value))*10**8):08b} "
+            else:
+                return f"{3:08b} {1:08b} {int(abs(value)):08b} {int((abs(value)-int(abs(value)))*10**8):08b} "
+
         elif isinstance(value, str):
             string_bytes = ""
             for char in value:
-                # string_bytes += str(ord(char)) + " "
                 string_bytes += f"{ord(char):08b} "
-            return f"{self.types['string']:08b} {len(value):08b} {string_bytes}"
+            return f"{4:08b} {len(value):08b} {string_bytes}"
+
         elif isinstance(value, list):
-            list_bytes = f"{self.types['list']:08b} {len(value):08b} "
+            list_bytes = f"{5:08b} {len(value):08b} "
             for element in value:
                 list_bytes += self.deserialize_value(element)
             return list_bytes
+
         elif isinstance(value, dict):
-            dict_bytes = f"{self.types['dict']:08b} {len(value.keys()):08b} "
+            dict_bytes = f"{6:08b} {len(value.keys()):08b} "
             for k,v in value.items():
                 dict_bytes += f"{self.deserialize_value(k)}{self.deserialize_value(v)}"
             return dict_bytes
+
         else:
             print("Invalid data")
             sys.exit()
 
-
 if __name__ == "__main__":
     parser: Parser = Parser(file_path="schedule.ron")
     parsed_object = parser.parse()
+
     binary_deserializer = BinaryDeserializer(parsed_object, "output_my.bin")
     binary_deserializer.deserialize()
-    #print(' '.join(format(ord(x), 'b') for x in "абоба"))
-    #print(f"{123:b}")

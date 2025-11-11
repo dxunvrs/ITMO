@@ -3,7 +3,6 @@
 # RON -> YAML
 # Сериализация - parsed_object -> XML
 
-import sys
 from task0 import Parser
 
 class XMLConverter:
@@ -35,12 +34,14 @@ class XMLConverter:
                 lines.append(self.create_tree(v, k, level+1)) # рекурсивно спускаемся по элементам, в качестве тэга передаем ключ
             lines.append(f"{spaces}</{cur_tag}>") # завершение блока
             return "\n".join(lines) # соединяем строки в одну
+
         elif isinstance(value, list): # если массив
             lines = [f"{spaces}<{cur_tag}>"]
             for item in value:
                 lines.append(self.create_tree(item, "item", level+1)) # рекурсивно спускаемся по элементам, <item> в качестве тэга для каждого элемента
             lines.append(f"{spaces}</{cur_tag}>")
             return "\n".join(lines) # соединяем строки в одну
+
         else:
             return f"{spaces}<{cur_tag}>{str(value)}</{cur_tag}>" # в других случаях просто записываем значение
 
