@@ -193,9 +193,12 @@ class BinarySerializer:
         pair.append(self.serialize())
         return pair
 
-if __name__ == "__main__":
-    binary_serializer : BinarySerializer = BinarySerializer("output_my.bin")
+def main():
+    binary_serializer: BinarySerializer = BinarySerializer("output_my.bin")
     parsed_object = binary_serializer.serialize()
 
     converter: Converter = Converter("output_my.yaml", parsed_object)
     converter.convert_to_yaml()
+
+if __name__ == "__main__":
+    main()

@@ -25,7 +25,7 @@ class Deserializer:
         self.parse()
         with open(self.bin_path, "wb") as bin_file:
             try:
-                print(pickle.dumps(self.parsed_object))
+                # print(pickle.dumps(self.parsed_object))
                 pickle.dump(self.parsed_object, bin_file)
             except Exception as e:
                 print(e)
@@ -54,8 +54,11 @@ class Serializer:
                 print(e)
                 sys.exit()
 
-if __name__ == "__main__":
+def main():
     deserializer: Deserializer = Deserializer("schedule.ron", "output_library.bin")
     serializer: Serializer = Serializer("output_library.bin", "output_library.yaml")
     deserializer.deserialize()
     serializer.serialize()
+
+if __name__ == "__main__":
+    main()

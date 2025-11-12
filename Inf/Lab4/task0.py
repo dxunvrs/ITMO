@@ -296,9 +296,12 @@ class BinaryDeserializer:
             print("Invalid data")
             sys.exit()
 
-if __name__ == "__main__":
+def main():
     parser: Parser = Parser(file_path="schedule.ron")
     parsed_object = parser.parse()
 
     binary_deserializer = BinaryDeserializer(parsed_object, "output_my.bin")
     binary_deserializer.deserialize()
+
+if __name__ == "__main__":
+    main()
