@@ -1,23 +1,17 @@
 # 501595%132=127 Дни: понедельник, суббота - не уд. требованиям
 # 127+8=135, 135%132=3 Дни: понедельник, четверг
 # RON -> YAML
-# Сериализация - parsed_object -> XML
+# Сериализация - RON -> XML
 
-from task0 import Parser
+from task1 import BinarySerializer
 
 class XMLConverter:
-    def __init__(self, file_path:str, output_path:str):
+    def __init__(self, output_path:str, parsed):
         self.output_path: str = output_path
-        self.file_path: str = file_path
-        self.parsed_object = None
+        self.parsed_object = parsed
         self.content: str = ""
 
-    def parse_file(self) -> None:
-        parser: Parser = Parser(self.file_path) # парсим файл кодом из предыдущего задания
-        self.parsed_object = parser.parse()
-
     def convert_to_xml(self):
-        self.parse_file()
         self.content = self.create_tree(self.parsed_object, "root") # вызываем главную функцию
 
         with open(self.output_path, "w") as output_file:
@@ -52,6 +46,10 @@ class XMLConverter:
         except:
             return False
 
+def main():
+    binary_serializer: BinarySerializer = BinarySerializer("output_my.bin")
+    parsed_object = binary_serializer.serialize()
+    xml_converter: XMLConverter = XMLConverter("output_my.xml", parsed_object)
+
 if __name__ == "__main__":
-    converter: XMLConverter = XMLConverter("schedule.ron", "output_my.xml")
-    converter.convert_to_xml()
+    main()

@@ -1,24 +1,35 @@
 from dicttoxml import dicttoxml, parseString
-from task0 import Parser
+from task2 import Deserializer
+import pickle
+import sys
 
-class XMLConverter:
-    parsed_object: dict = {}
-    def __init__(self, file_path:str, output_path:str) -> None:
-        self.output_path: str = output_path
-        self.file_path: str = file_path
+class Serializer:
+    def __init__(self, bin_path:str, output_path:str):
+        self.bin_path = bin_path
+        self.output_path = output_path
+        self.parsed_object = None
 
-    def parse_file(self) -> None:
-        parser: Parser = Parser(self.file_path)
-        self.parsed_object = parser.parse()
+    def serialize(self):
+        with open(self.bin_path, "rb") as bin_file:
+            try:
+                self.parsed_object = pickle.load(bin_file)
+            except Exception as e:
+                print(e)
+                sys.exit()
+        self.convert_to_xml()
 
     def convert_to_xml(self):
-        self.parse_file()
         xml_bytes = dicttoxml(self.parsed_object, custom_root="users", attr_type=False)
         xml_pretty = parseString(xml_bytes).toprettyxml()
 
         with open(self.output_path, "w") as output_file:
             output_file.write(xml_pretty)
 
+def main():
+    deserializer: Deserializer = Deserializer("schedule.ron", "output_library.bin")
+    serializer: Serializer = Serializer("output_library.bin", "output_library.xml")
+    deserializer.deserialize()
+    serializer.serialize()
+
 if __name__ == "__main__":
-    converter: XMLConverter = XMLConverter("test.ron", "output_library.xml")
-    converter.convert_to_xml()
+    main()

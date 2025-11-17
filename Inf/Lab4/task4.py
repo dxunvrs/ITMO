@@ -24,16 +24,15 @@ for x in range(100):
     task2.main()
 print("Library converter: ", time.time() - start_time)
 
-# # Время для RON->XML (моя реализация)
-# start_time = time.time()
-# for x in range(100):
-#     converter = task3.XMLConverter("schedule.ron", "output_library.xml")
-#     converter.convert_to_xml()
-# print("My XML converter ", time.time() - start_time)
-#
-# # Время для RON->XML (библиотеки)
-# start_time = time.time()
-# for x in range(100):
-#     converter = xml_converter.XMLConverter("schedule.ron", "output_library.xml")
-#     converter.convert_to_xml()
-# print("Library XML converter ", time.time() - start_time)
+# Время для RON->XML (моя реализация)
+start_time = time.time()
+for x in range(100):
+    task0.main()
+    task3.main()
+print("My XML converter ", time.time() - start_time)
+
+# Время для RON->XML (библиотеки)
+start_time = time.time()
+for x in range(100):
+    xml_converter.main()
+print("Library XML converter ", time.time() - start_time)
