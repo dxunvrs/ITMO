@@ -256,37 +256,44 @@ class BinaryDeserializer:
             output_file.write(self.content)
 
     def deserialize_value(self, value) -> str:
+        # первым байтом будет тип значения
         if isinstance(value, bool):
+            # второй байт 0 или 1 в зависимости True или False
             if value:
                 return f"{1:08b} {1:08b} "
             else:
                 return f"{1:08b} {0:08b} "
 
         elif isinstance(value, int):
+            # второй байт - знак, третий - само число
             if value >= 0:
                 return f"{2:08b} {0:08b} {value:08b} "
             else:
                 return f"{2:08b} {1:08b} {abs(value):08b} "
 
         elif isinstance(value, float):
+            # второй байт - знак, третий - целая часть, четвертый - дробная часть
             if value >= 0:
                 return f"{3:08b} {0:08b} {int(value):08b} {int((value-int(value))*10**8):08b} "
             else:
                 return f"{3:08b} {1:08b} {int(abs(value)):08b} {int((abs(value)-int(abs(value)))*10**8):08b} "
 
         elif isinstance(value, str):
+            # второй байт - длина n, следующие n - символы в Unicode
             string_bytes = ""
             for char in value:
                 string_bytes += f"{ord(char):08b} "
             return f"{4:08b} {len(value):08b} {string_bytes}"
 
         elif isinstance(value, list):
+            # второй байт - длина n, следующие байты - значения
             list_bytes = f"{5:08b} {len(value):08b} "
             for element in value:
                 list_bytes += self.deserialize_value(element)
             return list_bytes
 
         elif isinstance(value, dict):
+            # второй байт - кол-во пар n, следующие байты - пары ключ-значение
             dict_bytes = f"{6:08b} {len(value.keys()):08b} "
             for k,v in value.items():
                 dict_bytes += f"{self.deserialize_value(k)}{self.deserialize_value(v)}"
