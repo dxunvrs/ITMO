@@ -50,6 +50,7 @@ def main():
     binary_serializer: BinarySerializer = BinarySerializer("output_my.bin")
     parsed_object = binary_serializer.serialize()
     xml_converter: XMLConverter = XMLConverter("output_my.xml", parsed_object)
+    xml_converter.convert_to_xml()
 
 if __name__ == "__main__":
     main()
