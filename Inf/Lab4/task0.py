@@ -251,6 +251,13 @@ class BinaryDeserializer:
 
     def deserialize(self):
         self.content = self.deserialize_value(self.parsed_object)
+        content_list = self.content.split()
+        self.content = ""
+        for i in range(0,len(content_list)):
+            if (i+1) % 8 == 0:
+                self.content += content_list[i] + "\n"
+            else:
+                self.content += content_list[i] + " "
 
         with open(self.output_path, "w") as output_file:
             output_file.write(self.content)
