@@ -1,12 +1,13 @@
 package Technique;
 
-import Interfaces.Flyable;
-import Enums.SpaceObjects;
+import Environment.SpaceObjects;
 
-public final class Rocket extends Device implements Flyable {
-    private final Engine engine;
-    private boolean isFlying = false;
-    private final SpaceObjects target;
+import java.util.Objects;
+
+public final class Rocket extends Device implements Workable {
+    private Engine engine;
+    private SpaceObjects target;
+    private boolean isWork = false;
 
     public Rocket(String name, Engine engine, SpaceObjects type) {
         super(name);
@@ -18,23 +19,66 @@ public final class Rocket extends Device implements Flyable {
         return engine;
     }
 
-    public void getTarget() {
-        System.out.print(name + " летит, цель: " + target.getName());
+    public SpaceObjects getTarget() {
+        return target;
+    }
+
+    public void setEngine(Engine newEngine) {
+        engine = newEngine;
+    }
+
+    public void setTarget(SpaceObjects newTarget) {
+        target = newTarget;
+    }
+
+    public void stopEngine() {
+        engine.stop();
+    }
+
+    public void startEngine() {
+        engine.start();
     }
 
     @Override
     public void start() {
-        isFlying = true;
-        System.out.print("Полет начался");
+        isWork = true;
+        startEngine();
+        System.out.print("Полет начался ");
+        System.out.println();
+        System.out.print(name + " летит, цель: " + target.getName() + " ");
     }
 
     @Override
-    public boolean isFlying() {
-        return isFlying;
+    public void stop() {
+        isWork = true;
+        stopEngine();
+        System.out.print("Полет завершился ");
     }
 
     @Override
     public String work() {
-        return name + " летит";
+        if (isWork) {
+            return name + " летит ";
+        } else {
+            return name + " простаивает ";
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Rocket " + name + " with " + engine + " go to " + target;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, engine, target);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Rocket)) { return false; }
+        if (o.hashCode() != hashCode()) { return false; }
+        Rocket other = (Rocket) o;
+        return other.name == name && other.engine == engine && other.target == target;
     }
 }

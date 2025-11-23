@@ -1,4 +1,4 @@
-package Enums;
+package Characters;
 
 public enum Feels {
     FUN("радость"), WEIGHTLESS("невесомость");

@@ -1,6 +1,8 @@
-import Technique.Engine;
-import Technique.Rocket;
-import Enums.*;
+import Characters.Feels;
+import Environment.SpaceObjects;
+import Environment.Time;
+import Exceptions.DistanceException;
+import Technique.*;
 import Characters.Shorty;
 
 import java.util.ArrayList;
@@ -10,11 +12,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         // старт ракеты
-        Engine engine = new Engine("Двигатель");
+        Engine engine = new ChemicalEngine("Двигатель");
         Rocket rocket = new Rocket("Ракета1", engine, SpaceObjects.MOON);
         rocket.start();
-        System.out.println();
-        rocket.getTarget();
         System.out.println();
 
         // погрузка коротышек
@@ -24,7 +24,7 @@ public class Main {
                 new Shorty("Пилюлькин")
         ));
         Shorty znayka = new Shorty("Знайка");
-        shorties.add(znayka);
+        shorties.add(znayka); // добавление через add
 
         for (Shorty shorty : shorties) {
             shorty.onBoard(rocket);
@@ -36,13 +36,13 @@ public class Main {
         Shorty neznayka = new Shorty("Незнайка");
         neznayka.sleep("Пищевой отсек");
         System.out.println();
-        neznayka.wakeUp(Time.NIGHT.getName());
+        neznayka.wakeUp(Time.NIGHT);
         System.out.println();
         neznayka.remember("Нарочно забрался в ракету");
         System.out.println();
 
         // Незнайка слышит шум двигателя и ощущает невесомость
-        neznayka.feel(Feels.WEIGHTLESS.getName());
+        neznayka.feel(Feels.WEIGHTLESS);
         System.out.println();
         neznayka.hear(rocket.getEngine().work());
         System.out.println();
@@ -53,13 +53,21 @@ public class Main {
         neznayka.think("Все так, как я и хотел");
         System.out.println();
 
-        // Незнайка чувсвует радость
-        neznayka.feel(Feels.FUN.getName());
+        // Незнайка чувствует радость
+        neznayka.feel(Feels.FUN);
         System.out.println();
 
         // Незнайка хотел сказать о своем присутствии Знайке, но в конце передумал
-        neznayka.wish().sayTo("Я без спросу залез в ракету", znayka);
+        neznayka.wish().speak("Скажу Знайке, что я без спросу залез в ракету ");
         System.out.println();
         neznayka.think("Ладно, подожду ещё чуть-чуть");
+        System.out.println();
+
+        // сколько до луны
+        //System.out.println(rocket.getTarget().getEarthDistanceInKilometers());
+
+         // тест исключения
+         //System.out.println(SpaceObjects.TEST.getEarthDistanceInKilometers());
+
     }
 }

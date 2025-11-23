@@ -1,4 +1,4 @@
-package Enums;
+package Environment;
 
 public enum Time {
     NIGHT("Ночь"), MORNING("Утро"), DAY("Обед"), EVENING("Вечер");
