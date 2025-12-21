@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class NuclearEngine extends Engine {
     public NuclearEngine(String name) {
-        super(name);
+        super(name, 500000000);
     }
 
     @Override
-    public void getEngineType() {
-        System.out.print(name + " - электрический двигатель ");
+    public String getEngineType() {
+        return name + " - ядерный двигатель ";
     }
 
     @Override
@@ -18,15 +18,9 @@ public class NuclearEngine extends Engine {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-
-    @Override
     public boolean equals(Object o) {
-        if (!(o instanceof NuclearEngine)) { return false; }
-        if (o.hashCode() != hashCode()) { return false; }
+        if (!(o instanceof NuclearEngine) || o.hashCode() != hashCode()) { return false; }
         NuclearEngine other = (NuclearEngine) o;
-        return other.name == name;
+        return name.equals(other.name);
     }
 }

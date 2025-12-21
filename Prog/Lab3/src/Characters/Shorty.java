@@ -11,7 +11,8 @@ public class Shorty extends Character {
     }
 
     public void onBoard(Rocket rocket) {
-        System.out.print(name + " погрузился в " + rocket.getName());
+        rocket.addPassengers(this);
+        System.out.println(name + " погрузился в " + rocket.getName());
     }
 
     @Override
@@ -20,15 +21,9 @@ public class Shorty extends Character {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-
-    @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Shorty)) { return false; }
-        if (o.hashCode() != hashCode()) { return false; }
+        if (!(o instanceof Shorty) || o.hashCode() != hashCode()) { return false; }
         Shorty other = (Shorty) o;
-        return other.name == name;
+        return name.equals(other.name);
     }
 }

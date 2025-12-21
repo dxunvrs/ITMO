@@ -1,7 +1,7 @@
 package Characters;
 
 public enum Feels {
-    FUN("радость"), WEIGHTLESS("невесомость");
+    FUN("радость"), SAD("грусть");
 
     private final String name;
 

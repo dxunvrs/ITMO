@@ -1,18 +1,30 @@
 package Technique;
 
-import Environment.SpaceObjects;
+import Characters.Neznayka;
+import Characters.Shorty;
+import Distance.SpaceObjects;
+import Environment.Sound;
+import Places.Place;
+import Places.RoomInAnotherRocketException;
+import Places.TargetFarAwayException;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-public final class Rocket extends Device implements Workable {
-    private Engine engine;
+public final class Rocket extends Device {
+    private final Engine engine;
     private SpaceObjects target;
-    private boolean isWork = false;
+    private final ArrayList<Shorty> passengers = new ArrayList<>();
+    private final ArrayList<Place> places = new ArrayList<>();
 
-    public Rocket(String name, Engine engine, SpaceObjects type) {
-        super(name);
+    public Rocket(String name, Engine engine, SpaceObjects target) {
+        super(name, new Sound("шум ракеты"));
         this.engine = engine;
-        this.target = type;
+        this.target = target;
+    }
+
+    public Rocket(String name, Engine engine) {
+        this(name, engine, SpaceObjects.MOON);
     }
 
     public Engine getEngine() {
@@ -23,45 +35,48 @@ public final class Rocket extends Device implements Workable {
         return target;
     }
 
-    public void setEngine(Engine newEngine) {
-        engine = newEngine;
+    public void setTarget(SpaceObjects newTarget) throws TargetFarAwayException {
+        if (engine.getMaxDistance() >= newTarget.getEarthDistanceInKilometers()) {
+            target = newTarget;
+        } else {
+            throw new TargetFarAwayException("Цель слишком далеко", newTarget.getEarthDistanceInKilometers());
+        }
     }
 
-    public void setTarget(SpaceObjects newTarget) {
-        target = newTarget;
-    }
-
-    public void stopEngine() {
-        engine.stop();
-    }
-
-    public void startEngine() {
-        engine.start();
-    }
-
-    @Override
     public void start() {
-        isWork = true;
-        startEngine();
         System.out.print("Полет начался ");
         System.out.println();
-        System.out.print(name + " летит, цель: " + target.getName() + " ");
-    }
+        System.out.println(name + " летит, цель: " + target.getName() + " ");
 
-    @Override
-    public void stop() {
-        isWork = true;
-        stopEngine();
-        System.out.print("Полет завершился ");
-    }
-
-    @Override
-    public String work() {
-        if (isWork) {
-            return name + " летит ";
-        } else {
-            return name + " простаивает ";
+        for (Shorty passenger : passengers) {
+            if (passenger instanceof Neznayka) {
+                ((Neznayka) passenger).feelFunnyOfFlight();
+            }
         }
+    }
+
+    public void stop() {
+        System.out.println("Полет завершился");
+        for (Shorty passenger : passengers) {
+            System.out.println(passenger.getName() + " сошел с борта ракеты");
+        }
+    }
+
+    public void addPassengers(Shorty character) {
+        passengers.add(character);
+    }
+
+    public ArrayList<Shorty> getPassengers() {
+        return passengers;
+    }
+
+    public void addPlace(Place place) throws RoomInAnotherRocketException {
+        if (place.getRocket() == null) {
+            places.add(place);
+        } else {
+            throw new RoomInAnotherRocketException("Помещение уже в другой ракете", place.getName());
+        }
+
     }
 
     @Override
@@ -76,9 +91,8 @@ public final class Rocket extends Device implements Workable {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Rocket)) { return false; }
-        if (o.hashCode() != hashCode()) { return false; }
+        if (!(o instanceof Rocket) || o.hashCode() != hashCode()) { return false; }
         Rocket other = (Rocket) o;
-        return other.name == name && other.engine == engine && other.target == target;
+        return name.equals(other.name) && engine.equals(other.engine) && target.equals(other.target);
     }
 }

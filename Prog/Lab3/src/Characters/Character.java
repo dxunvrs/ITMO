@@ -1,11 +1,14 @@
 package Characters;
 
+import Places.Place;
+import Environment.Sound;
 import Environment.Time;
 
 import java.util.Objects;
 
-public abstract class Character implements Talkable, Thinkable, Humanable {
+public abstract class Character implements Talkable, Humanable {
     protected String name;
+    protected boolean isSleep;
 
     protected Character(String name) {
         this.name = name;
@@ -22,42 +25,34 @@ public abstract class Character implements Talkable, Thinkable, Humanable {
 
     @Override
     public void feel(Feels feel) {
-        System.out.print(name + " чувствует " + feel.getName());
+        System.out.println(name + " чувствует " + feel.getName() + " ");
     }
 
     @Override
     public void wakeUp(Time time) {
-        System.out.print(time.getName() + " : " + name + " просыпается");
+        isSleep = false;
+        System.out.println(time.getName() + " : " + name + " просыпается ");
     }
 
     @Override
-    public void sleep(String place) {
-        System.out.print(place + " : " + name + " спит");
+    public void sleep(Place place, Time time) {
+        isSleep = true;
+        System.out.println(time.getName() + " : " + name + " спит в " + place.getName() + " ");
     }
 
     @Override
-    public void hear(String sound) {
-        System.out.print(name + " слышит " + sound);
+    public void hear(Sound sound) {
+        if (!isSleep) {
+            System.out.println(name + " слышит " + sound.getName());
+        } else {
+            System.out.println(name + " спит и не слышит " + sound.getName());
+        }
+
     }
 
     @Override
     public void speak(String speech) {
-        System.out.print(name + " говорит: " + speech);
-    }
-
-    @Override
-    public void think(String thought) {
-        System.out.print(thought + " - думает " + name);
-    }
-
-    @Override
-    public void remember(String text) {
-        System.out.print(text + " - вспомнил " + name);
-    }
-
-    @Override
-    public void understand(String text) {
-        System.out.print(text + " - понял " + name);
+        System.out.println(name + " говорит: " + speech);
     }
 
     @Override
@@ -72,9 +67,8 @@ public abstract class Character implements Talkable, Thinkable, Humanable {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Character)) { return false; }
-        if (o.hashCode() != hashCode()) { return false; }
+        if (!(o instanceof Character) || o.hashCode() != hashCode()) { return false; }
         Character other = (Character) o;
-        return other.name == name;
+        return name.equals(other.name);
     }
 }

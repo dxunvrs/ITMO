@@ -1,43 +1,30 @@
 package Technique;
 
+import Environment.Sound;
+
 import java.util.Objects;
 
-public abstract class Engine extends Device implements Workable {
-    private boolean isWork = false;
+public abstract class Engine extends Device {
+    protected final int maxDistance;
+    private long timeOfLastCheck = System.currentTimeMillis();
 
-    public Engine(String name) {
-        super(name);
+    public Engine(String name, int maxDistance) {
+        super(name, new Sound("шум двигателя"));
+        this.maxDistance = maxDistance;
     }
 
-    public abstract void getEngineType();
+    public abstract String getEngineType();
 
-    @Override
-    public String work() {
-        if (isWork) {
-            return name + " шумит ";
-        } else {
-            return name + " простаивает ";
-        }
+    public int getMaxDistance() {
+        return maxDistance;
     }
 
-    @Override
-    public void start() {
-        if (isWork) {
-            System.out.print(name + " : двигатель уже запущен ");
-        } else {
-            isWork = true;
-            System.out.print(name + " : двигатель запущен ");
-        }
+    public void setTimeOfLastCheck(long time) {
+        timeOfLastCheck = time;
     }
 
-    @Override
-    public void stop() {
-        if (!isWork) {
-            System.out.print(name + " : двигатель уже остановлен ");
-        } else {
-            isWork = false;
-            System.out.print(name + " : двигатель остановлен ");
-        }
+    public long getTimeOfLastCheck() {
+        return timeOfLastCheck;
     }
 
     @Override
@@ -47,14 +34,13 @@ public abstract class Engine extends Device implements Workable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, maxDistance);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Engine)) { return false; }
-        if (o.hashCode() != hashCode()) { return false; }
+        if (!(o instanceof Engine) || o.hashCode() != hashCode()) { return false; }
         Engine other = (Engine) o;
-        return other.name == name;
+        return name.equals(other.name) && maxDistance == other.maxDistance;
     }
 }
