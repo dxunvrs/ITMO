@@ -2,12 +2,7 @@
 
 # Описание
 Направление: СППО  
-Полезные материалы, лабы и комментарии к ним  
-
-# Баллы за лабы (ссылки на отдельные таблицы)
-[ОПД](https://github.com/dxunvrs/ITMO/blob/master/OPD/opd.md)  
-[Информатика](https://github.com/dxunvrs/ITMO/blob/master/Inf/inf.md)  
-[Программирование](https://github.com/dxunvrs/ITMO/blob/master/Prog/prog.md)  
+Полезные материалы, лабы и комментарии к ним   
 
 # Полезные материалы
 [Файл](https://github.com/dxunvrs/ITMO/blob/master/OPD/Lab2/hint.md) с потактовой работой команд БЭВМ для 2 лабы/рубежа по ОПД  
