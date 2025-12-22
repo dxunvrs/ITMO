@@ -6,11 +6,12 @@ import java.util.Objects;
 
 public abstract class Engine extends Device {
     protected final int maxDistance;
-    private long timeOfLastCheck = System.currentTimeMillis();
+    private long timeOfLastCheck;
 
     public Engine(String name, int maxDistance) {
         super(name, new Sound("шум двигателя"));
         this.maxDistance = maxDistance;
+        timeOfLastCheck = System.currentTimeMillis();
     }
 
     public abstract String getEngineType();
