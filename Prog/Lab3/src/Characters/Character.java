@@ -18,10 +18,6 @@ public abstract class Character implements Talkable, Humanable {
         return name;
     }
 
-    public Character wish() {
-        System.out.print(name + " хотел: ");
-        return this;
-    }
 
     @Override
     public void feel(Feels feel) {

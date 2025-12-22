@@ -1,4 +1,4 @@
-package Places;
+package Technique;
 
 public class TargetFarAwayException extends Exception {
     private final float distance;

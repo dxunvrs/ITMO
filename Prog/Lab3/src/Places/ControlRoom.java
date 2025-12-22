@@ -2,6 +2,7 @@ package Places;
 
 import Characters.Shorty;
 import Distance.SpaceObjects;
+import Technique.TargetFarAwayException;
 
 public class ControlRoom extends Place {
     public ControlRoom(String name) {

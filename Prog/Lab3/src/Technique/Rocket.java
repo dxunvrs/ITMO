@@ -5,8 +5,6 @@ import Characters.Shorty;
 import Distance.SpaceObjects;
 import Environment.Sound;
 import Places.Place;
-import Places.RoomInAnotherRocketException;
-import Places.TargetFarAwayException;
 
 import java.util.ArrayList;
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package Places;
+package Technique;
 
 public class RoomInAnotherRocketException extends Exception {
     private final String roomName;

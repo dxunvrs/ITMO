@@ -60,7 +60,7 @@ public class Main {
 
         Rocket rocket2 = new Rocket("Ракета2", new ChemicalEngine("Двигатель"));
         controlRoom.setRocket(rocket2);
-
+        
         // приземление
         rocket.stop();
     }

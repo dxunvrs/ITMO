@@ -1,6 +1,7 @@
 package Places;
 
 import Technique.Rocket;
+import Technique.RoomInAnotherRocketException;
 
 import java.util.Objects;
 
