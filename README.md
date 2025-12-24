@@ -1,4 +1,6 @@
-<h1 align=center> ITMO CSE STUDY </h1>
+<h1 align=center> ITMO CSE STUDY 
+<img src="OPD/уточка.png" height=26>
+</h1>
 
 # Описание
 Направление: СППО  
