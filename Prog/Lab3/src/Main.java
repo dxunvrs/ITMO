@@ -1,17 +1,14 @@
-import Characters.Feels;
-import Characters.Neznayka;
-import Distance.SpaceObjects;
-import Environment.Time;
-import Places.ControlRoom;
-import Places.EngineRoom;
-import Places.FoodCompartment;
-import Places.Place;
-import Technique.*;
-import Characters.Shorty;
+import characters.Feel;
+import characters.Neznayka;
+import distance.SpaceObject;
+import environment.Time;
+import places.ControlRoom;
+import places.EngineRoom;
+import places.FoodCompartment;
+import technique.*;
+import characters.Shorty;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class Main {
@@ -47,16 +44,16 @@ public class Main {
         neznayka.wakeUp(Time.NIGHT);
         neznayka.speak("Я в ракете");
         neznayka.hear(rocket.getEngine().getSound());
-        neznayka.feel(Feels.FUN);
+        neznayka.feel(Feel.FUN);
 
         // тест исключений и активностей
         engineRoom.checkEngine(neznayka);
-        controlRoom.changeTarget(neznayka, SpaceObjects.MARS);
+        controlRoom.changeTarget(neznayka, SpaceObject.MARS);
 
         Shorty shorty3 = new Shorty("Коротышка");
-        controlRoom.changeTarget(shorty3, SpaceObjects.MOON);
+        controlRoom.changeTarget(shorty3, SpaceObject.MOON);
 
-        controlRoom.changeTarget(neznayka, SpaceObjects.TEST);
+        controlRoom.changeTarget(neznayka, SpaceObject.TEST);
 
         Rocket rocket2 = new Rocket("Ракета2", new ChemicalEngine("Двигатель"));
         controlRoom.setRocket(rocket2);
