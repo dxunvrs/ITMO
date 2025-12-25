@@ -1,5 +1,7 @@
-<h1 align=center> ITMO CSE STUDY 
+<h1 align=center> ITMO CSE STUDY
+<a href=https://se.ifmo.ru/>
 <img src="OPD/уточка.png" height=26>
+</a>
 </h1>
 
 # Описание
