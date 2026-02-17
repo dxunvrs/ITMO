@@ -1,11 +1,12 @@
+BEGIN;
 DROP TABLE IF EXISTS university CASCADE;
 DROP TABLE IF EXISTS scientist CASCADE;
 DROP TABLE IF EXISTS dna CASCADE;
 DROP TABLE IF EXISTS animal CASCADE;
 DROP TABLE IF EXISTS fossil CASCADE;
 DROP TABLE IF EXISTS fossils_research CASCADE;
-DROP TABLE IF EXISTS hyphothesis CASCADE;
-DROP TABLE IF EXISTS hyphotheses CASCADE;
+DROP TABLE IF EXISTS hypothesis CASCADE;
+DROP TABLE IF EXISTS hypotheses_research CASCADE;
 
 CREATE TABLE University (
     id SERIAL PRIMARY KEY,
@@ -43,18 +44,19 @@ CREATE TABLE Fossil (
 
 CREATE TABLE Fossils_research (
     id SERIAL PRIMARY KEY,
-    scientist INTEGER NOT NULL REFERENCES scientist(id),
+    scientist_id INTEGER NOT NULL REFERENCES scientist(id),
     fossil_id INTEGER NOT NULL REFERENCES fossil(id)
 );
 
-CREATE TABLE Hyphothesis (
+CREATE TABLE Hypothesis (
     id SERIAL PRIMARY KEY,
     animal_id INTEGER NOT NULL REFERENCES animal(id),
     proof BOOLEAN NOT NULL
 );
 
-CREATE TABLE Hyphotheses_research (
+CREATE TABLE Hypotheses_research (
     id SERIAL PRIMARY KEY,
     scientist_id INTEGER NOT NULL REFERENCES scientist(id),
-    hyphothesis_id INTEGER NOT NULL REFERENCES hyphothesis(id)
+    hypothesis_id INTEGER NOT NULL REFERENCES hypothesis(id)
 );
+COMMIT;
