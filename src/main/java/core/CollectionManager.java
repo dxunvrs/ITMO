@@ -3,29 +3,46 @@ package core;
 import exceptions.IdNotFoundException;
 import models.Product;
 
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class CollectionManager implements CollectionRepository {
     private final List<Product> collection;
-    private final LocalDate dateOfInit;
-
-    public CollectionManager(LinkedList<Product> collection, LocalDate dateOfInit) {
-        this.collection = collection;
-        this.dateOfInit = dateOfInit;
-    }
+    private LocalDateTime dateOfInit;
 
     public CollectionManager() {
-        collection = new LinkedList<Product>();
-        dateOfInit = LocalDate.now();
+        collection = new LinkedList<>();
+        dateOfInit = LocalDateTime.now();
     }
 
     @Override
-    public Iterator<Product> getIterator() {
-        return Collections.unmodifiableCollection(collection).iterator();
+    public void sort() {
+        Collections.sort(collection);
+    }
+
+    @Override
+    public void randomSort() {
+        Collections.shuffle(collection);
+    }
+
+    @Override
+    public void addProduct(Product product) {
+        collection.add(product);
+    }
+
+    @Override
+    public void removeProduct(int index) {
+        collection.remove(index);
+    }
+
+    @Override
+    public void updateProduct(int index, Product product) {
+        collection.set(index, product);
+    }
+
+    @Override
+    public void clearCollection() {
+        collection.clear();
     }
 
     @Override
@@ -41,33 +58,13 @@ public class CollectionManager implements CollectionRepository {
     }
 
     @Override
-    public void sort() {
-        Collections.sort(collection);
+    public Product getProduct(int index) {
+        return collection.get(index);
     }
 
     @Override
-    public void randomSort() {
-        Collections.shuffle(collection);
-    }
-
-    @Override
-    public LocalDate getDateOfInit() {
-        return dateOfInit;
-    }
-
-    @Override
-    public void addElement(Product product) {
-        collection.add(product);
-    }
-
-    @Override
-    public void clearCollection() {
-        collection.clear();
-    }
-
-    @Override
-    public void updateProduct(int index, Product product) {
-        collection.set(index, product);
+    public Iterator<Product> getIterator() {
+        return Collections.unmodifiableCollection(collection).iterator();
     }
 
     @Override
@@ -76,7 +73,12 @@ public class CollectionManager implements CollectionRepository {
     }
 
     @Override
-    public void removeById(int index) {
-        collection.remove(index);
+    public LocalDateTime getDateOfInit() {
+        return dateOfInit;
+    }
+
+    @Override
+    public void setDateOfInit(LocalDateTime dateOfInit) {
+        this.dateOfInit = dateOfInit;
     }
 }
