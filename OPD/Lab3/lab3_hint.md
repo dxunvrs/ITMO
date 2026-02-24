@@ -312,3 +312,10 @@ x1: WORD 0x0000
 С предекрементом -(var)
 
 ### Советую ознакомиться с моей [программой](https://github.com/dxunvrs/ITMO/blob/master/OPD/Lab3/program.asm) обхода массива
+
+### Трассировка
+Пишем нашу asm программу, запускаем БЭВМ следующим образом:
+```
+java -jar -Dmode=dual -Dcode=program.asm bcomp-ng.jar
+```
+В БЭВМ жмем кнопку ПРОДОЛЖИТЬ и ловим значения в консоли
