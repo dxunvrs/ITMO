@@ -1,10 +1,16 @@
 package commands;
 
+/**
+ * Базовый класс для команды
+ */
 public abstract class Command {
     private final String name;
     private final String description;
+
+    /**
+     * Число ожидаемых аргументов
+     */
     private final int expectArgs;
-    protected String[] tokens;
 
     public Command(String name, String description, int expectArgs) {
         this.name = name;
@@ -12,16 +18,10 @@ public abstract class Command {
         this.expectArgs = expectArgs;
     }
 
-    public void execute(String[] tokens) {
-        this.tokens = tokens;
-        if (expectArgs == (tokens.length - 1)) {
-            process();
-        } else {
-            System.out.println("Ожидалось " + expectArgs + " аргументов, получено " + (tokens.length-1));
-        }
-    }
-
-    protected abstract void process();
+    /**
+     * Метод выполнения команды
+     */
+    public abstract void execute(String[] tokens);
 
     public String getName() {
         return name;
@@ -30,4 +30,6 @@ public abstract class Command {
     public String getDescription() {
         return description;
     }
+
+    public int getExpectArgs() { return expectArgs; }
 }

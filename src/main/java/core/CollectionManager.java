@@ -2,83 +2,144 @@ package core;
 
 import exceptions.IdNotFoundException;
 import models.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import utility.ProductForm;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class CollectionManager implements CollectionRepository {
-    private final List<Product> collection;
-    private LocalDateTime dateOfInit;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-    public CollectionManager() {
-        collection = new LinkedList<>();
-        dateOfInit = LocalDateTime.now();
+
+/**
+ * Класс для управления коллекцией
+ */
+public class CollectionManager {
+    private static final Logger logger = LoggerFactory.getLogger(CollectionManager.class);
+    private final List<Product> collection = new LinkedList<>();
+    private LocalDateTime dateOfInit = LocalDateTime.now();
+
+    /**
+     * Последнее использованное id для автогенерации следующего
+     */
+    private int lastId = 0;
+
+    /**
+     * Инициализация коллекции
+     * @param dateOfInit время инициализации
+     */
+    public void initCollection(LocalDateTime dateOfInit) {
+        this.dateOfInit = dateOfInit;
+        lastId = collection.stream().mapToInt(Product::getId).max().orElse(0);
+        logger.info("Инициализация коллекции, последний id: {}, дата: {}", lastId, dateOfInit);
     }
 
-    @Override
+    /**
+     * Сортировка в естественном порядке, прописана в {@link Product}, который реализует Comparable
+     */
     public void sort() {
         Collections.sort(collection);
+        logger.info("Коллекция отсортирована в естественном порядке");
     }
 
-    @Override
+    /**
+     * Рандомная сортировка
+     */
     public void randomSort() {
         Collections.shuffle(collection);
+        logger.info("Коллекция отсортирована в случайном порядке");
     }
 
-    @Override
+    /**
+     * Добавление заданного продукта
+     */
     public void addProduct(Product product) {
+        product.setId(++lastId);
+        product.setCreationDate(new Date());
         collection.add(product);
+        logger.info("В коллекцию добавлен новый продукт {}", product);
     }
 
-    @Override
-    public void removeProduct(int index) {
-        collection.remove(index);
+    /**
+     * Удаление продукта по id
+     */
+    public void removeProductById(int id) {
+        boolean removed = collection.removeIf(product -> product.getId()==id);
+        if (!removed) throw new IdNotFoundException("Нет такого id");
+        logger.info("Из коллекции удален элемент с id {}", id);
     }
 
-    @Override
-    public void updateProduct(int index, Product product) {
-        collection.set(index, product);
+    /**
+     * Обновление продукта по id
+     * @param productForm форма для запроса продукта
+     */
+    public void updateProductById(int id, ProductForm productForm) {
+        Product updatedProduct = collection.stream()
+                        .filter(product -> product.getId() == id)
+                        .findFirst()
+                        .orElseThrow(() -> new IdNotFoundException("Нет такого id"));
+        Product product = productForm.getProduct();
+        updatedProduct.update(product);
+        logger.info("Элемент с id {} обновлен, новое значение {}", id, product);
     }
 
-    @Override
+    /**
+     * Очистка коллекции
+     */
     public void clearCollection() {
         collection.clear();
+        logger.info("Коллекция очищена");
     }
 
-    @Override
-    public int findIndexById(int id) throws IdNotFoundException {
-        int index = 0;
-        for (Product product: collection) {
-            if (id == product.getId()) {
-                return index;
-            }
-            index++;
-        }
-        throw new IdNotFoundException("Такого id нет");
-    }
-
-    @Override
-    public Product getProduct(int index) {
-        return collection.get(index);
-    }
-
-    @Override
-    public Iterator<Product> getIterator() {
-        return Collections.unmodifiableCollection(collection).iterator();
-    }
-
-    @Override
+    /**
+     * Получение размера коллекции
+     */
     public int getCollectionSize() {
         return collection.size();
     }
 
-    @Override
+    /**
+     * Получение даты инициализации коллекции
+     */
     public LocalDateTime getDateOfInit() {
         return dateOfInit;
     }
 
-    @Override
-    public void setDateOfInit(LocalDateTime dateOfInit) {
-        this.dateOfInit = dateOfInit;
+    /**
+     * Получение суммы всех цен
+     */
+    public int getSumOfPrice() {
+        return collection.stream().mapToInt(Product::getPrice).sum();
+    }
+
+    /**
+     * Получение среднего значения всех цен
+     */
+    public double getAvgOfPrice() {
+        return collection.stream().mapToInt(Product::getPrice).average().orElse(0.0);
+    }
+
+    /**
+     * Получение отфильтрованных элементов коллекции в виде строки
+     * @param filter лямбда-функция фильтр
+     */
+    public String getFormattedCollection(Predicate<Product> filter) {
+        if (collection.isEmpty()) return "Коллекция пуста";
+
+        String result = collection.stream()
+                .filter(filter).map(Product::toFormattedString).collect(Collectors.joining("\n"));
+
+        if (result.isEmpty()) return "Совпадений не найдено";
+        return result;
+    }
+
+    /**
+     * Сохранение коллекции
+     */
+    public void saveCollection(Consumer<Product> saveAction) {
+        collection.forEach(saveAction);
     }
 }

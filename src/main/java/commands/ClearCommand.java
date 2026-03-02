@@ -1,23 +1,21 @@
 package commands;
 
-import commands.di.CollectionManagerDependant;
-import core.CollectionRepository;
+import core.CollectionManager;
 
-public class ClearCommand extends Command implements CollectionManagerDependant {
-    private CollectionRepository collectionManager;
+/**
+ * Команда для очищения коллекции
+ */
+public class ClearCommand extends Command {
+    @Inject
+    private CollectionManager collectionManager;
 
     public ClearCommand() {
         super("clear", "clear - очистить коллекцию", 0);
     }
 
     @Override
-    protected void process() {
+    public void execute(String[] tokens) {
         collectionManager.clearCollection();
         System.out.println("Коллекция очищена");
-    }
-
-    @Override
-    public void setCollectionManager(CollectionRepository collectionManager) {
-        this.collectionManager = collectionManager;
     }
 }

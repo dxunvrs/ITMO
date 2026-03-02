@@ -1,6 +1,10 @@
 package exceptions;
 
-public class IdNotFoundException extends Exception {
+
+/**
+ * Проверяемое исключение для ненайденного id
+ */
+public class IdNotFoundException extends RuntimeException {
     public IdNotFoundException(String message) {
         super(message);
     }

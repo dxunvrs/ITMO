@@ -1,25 +1,23 @@
 package commands;
 
-import commands.di.CommandManagerDependant;
-import core.CommandRegistry;
+import core.CommandManager;
 
-public class HelpCommand extends Command implements CommandManagerDependant {
-    private CommandRegistry commandManager;
+/**
+ * Команда для вывода списка доступных команд
+ */
+public class HelpCommand extends Command {
+    @Inject
+    private CommandManager commandManager;
 
     public HelpCommand() {
         super("help", "help - список доступных команд", 0);
     }
 
     @Override
-    protected void process() {
+    public void execute(String[] tokens) {
         System.out.println("Список команд и их описание: ");
         for (Command command : commandManager.getCommandsMap().values()) {
             System.out.println("  " + command.getDescription());
         }
-    }
-
-    @Override
-    public void setCommandManager(CommandRegistry commandManager) {
-        this.commandManager = commandManager;
     }
 }

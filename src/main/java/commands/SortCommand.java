@@ -1,23 +1,21 @@
 package commands;
 
-import commands.di.CollectionManagerDependant;
-import core.CollectionRepository;
+import core.CollectionManager;
 
-public class SortCommand extends Command implements CollectionManagerDependant {
-    private CollectionRepository collectionManager;
+/**
+ * Команда для естественной сортировки
+ */
+public class SortCommand extends Command {
+    @Inject
+    private CollectionManager collectionManager;
 
     public SortCommand() {
         super("sort", "sort - сортировка коллекции в естественном порядке (по id)", 0);
     }
 
     @Override
-    protected void process() {
+    public void execute(String[] tokens) {
         collectionManager.sort();
         System.out.println("Коллекция отсортирована в естественном порядке, введите show для просмотра");
-    }
-
-    @Override
-    public void setCollectionManager(CollectionRepository collectionManager) {
-        this.collectionManager = collectionManager;
     }
 }
