@@ -8,18 +8,28 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvReadException;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import core.CollectionRepository;
+import core.CollectionManager;
 import models.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Iterator;
 import java.util.Scanner;
 
-public class FileManager implements FileStorage {
+/**
+ * Класс для сохранения/загрузки коллекции из файла.
+ * Для сериализации/десериализации - Jackson
+ */
+public class FileManager {
+    private static final Logger logger = LoggerFactory.getLogger(FileManager.class);
     private final CsvMapper mapper = new CsvMapper();
     private final CsvSchema schema = mapper.schemaFor(Product.class);
+
+    /**
+     * Стандартное имя файла
+     */
     private String fileName = "collection.csv";
 
     public FileManager() {
@@ -27,64 +37,86 @@ public class FileManager implements FileStorage {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
-    @Override
+    /**
+     * Установка имени файла из аргументов запуска программы
+     */
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
-    @Override
-    public void load(CollectionRepository collectionManager) {
+    /**
+     * Метод загрузки коллекции из .csv файла. Используется {@link Scanner}
+     */
+    public void load(CollectionManager collectionRepository) {
         try (Scanner scanner = new Scanner(new File(fileName))) {
             LocalDateTime dateOfInit = null;
             if (scanner.hasNextLine()) {
                 dateOfInit = LocalDateTime.parse(scanner.nextLine());
             }
-//            if (scanner.hasNextLine()) {
-//                scanner.nextLine();
-//            }
+
             while (scanner.hasNextLine()) {
                 String dateLine = scanner.nextLine();
                 if (dateLine.trim().isEmpty()) continue;
                 Product product = mapper.readerFor(Product.class).with(schema).readValue(dateLine);
-                collectionManager.addProduct(product);
+                collectionRepository.addProduct(product);
             }
-            collectionManager.setDateOfInit(dateOfInit);
-            System.out.println("Коллекция загружена");
+
+            collectionRepository.initCollection(dateOfInit);
+            logger.info("Коллекция из файла {} успешно загружена", fileName);
+            System.out.println("Коллекция из файла " + fileName + " успешно загружена");
         } catch (DateTimeParseException e) {
+            logger.error("Не удалось распарсить дату", e);
             System.out.println("Неверный формат даты инициализации коллекции в файле, загрузка не удалась, создана новая коллекция");
         } catch (CsvReadException | JsonParseException e) {
+            logger.error("Не удалось распарсить файл", e);
             System.out.println("Структура CSV не распознана, загрузка не удалась, создана новая коллекция");
         } catch (InvalidFormatException e) {
+            logger.error("Не удалось распарсить данный тип", e);
             System.out.println("Неверный формат данных, загрузка не удалась, создана новая коллекция");
         } catch (DatabindException e) {
+            logger.error("Ошибка маппинга полей", e);
             System.out.println("Ошибка маппинга полей, загрузка не удалась, создана новая коллекция");
         } catch (FileNotFoundException e) {
+            logger.error("Ошибка загрузки: файл не найден", e);
             System.out.println("Файл не найден, загрузка не удалась, создана новая коллекция");
         } catch (SecurityException e) {
+            logger.error("Ошибка загрузки: недостаток прав", e);
             System.out.println("Недостаточно прав, загрузка не удалась, создана новая коллекция");
         } catch (IOException e) {
+            logger.error("Ошибка загрузки", e);
             System.out.println("Ошибка загрузки: " + e.getMessage());
             System.out.println("Создана новая коллекция");
         }
     }
 
-    @Override
-    public void save(Iterator<Product> iterator, LocalDateTime dateOfInit) {
+    /**
+     * Метод сохранения коллекции в .csv файл. Используется {@link BufferedWriter}
+     * @param collectionRepository менеджер коллекции
+     */
+    public void save(CollectionManager collectionRepository) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            writer.write(dateOfInit.toString());
+            writer.write(collectionRepository.getDateOfInit().toString());
             writer.newLine();
-//            writer.write(mapper.writer(schema.withHeader()).writeValueAsString(null).trim());
-//            writer.newLine();
-            while (iterator.hasNext()) {
-                String line = mapper.writer(schema.withoutHeader()).writeValueAsString(iterator.next()).trim();
-                writer.write(line);
-                writer.newLine();
-            }
+
+            collectionRepository.saveCollection(i -> {
+                try {
+                    String line = mapper.writer(schema.withoutHeader()).writeValueAsString(i).trim();
+                    writer.write(line);
+                    writer.newLine();
+                } catch (IOException e) {
+                    throw new UncheckedIOException(e);
+                }
+            });
+            logger.info("Коллекция успешно сохранена в файл: {}", fileName);
+            System.out.println("Коллекция успешно сохранена в файл " + fileName);
         } catch (FileNotFoundException e) {
+            logger.error("Ошибка сохранения: файл не найден", e);
             System.out.println("Файл не найден, сохранение не удалось");
         } catch (SecurityException e) {
+            logger.error("Ошибка сохранения: недостаток прав", e);
             System.out.println("Недостаточно прав, сохранение не удалось");
         } catch (IOException e) {
+            logger.error("Ошибка сохранения", e);
             System.out.println("Ошибка сохранения: " + e.getMessage());
         }
     }

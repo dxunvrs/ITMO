@@ -1,24 +1,25 @@
 package utility;
 
-import io.UserInput;
+import io.InputReader;
 import models.Coordinates;
 import models.Person;
 import models.Product;
 import models.UnitOfMeasure;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Objects;
 
+/**
+ * Класс для запроса конкретной формы - формы продукта
+ */
 public class ProductForm extends Form {
-    private final Integer id;
-
-    public ProductForm(UserInput reader, Integer id, boolean scriptMode) {
+    public ProductForm(InputReader reader, boolean scriptMode) {
         super(reader, scriptMode);
-        this.id = id;
     }
 
-    public Product getProduct(Date creationDate) {
+    /**
+     * Метод получения продукта
+     */
+    public Product getProduct() {
         String name = ask(String.class, "название", value -> {
             if (value == null) {
                 System.out.println("Имя не может быть пустым");
@@ -93,7 +94,7 @@ public class ProductForm extends Form {
         });
 
         return new Product(
-                id, name, new Coordinates(x, y), Objects.requireNonNullElseGet(creationDate, Date::new), price,
+                name, new Coordinates(x, y), price,
                 unitOfMeasure, new Person(ownerName, birthday, height)
         );
     }
