@@ -68,3 +68,5 @@ public enum UnitOfMeasure {
     MILLILITERS;
 }
 ```
+## Диаграмма классов разработанной программы
+![](uml.png)
