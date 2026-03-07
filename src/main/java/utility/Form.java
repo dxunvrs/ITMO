@@ -23,9 +23,9 @@ public class Form {
      */
     private final boolean scriptMode;
 
-    public Form(InputReader reader, boolean scriptMode) {
+    public Form(InputReader reader) {
         this.reader = reader;
-        this.scriptMode = scriptMode;
+        this.scriptMode = reader.isScriptMode();
     }
 
     /**
@@ -47,25 +47,19 @@ public class Form {
                     break;
                 }
                 logger.error("Значение не прошло валидацию");
+
             } catch (EndOfInputException e) {
                 if (scriptMode) throw new ScriptExecutionException("Получен конец ввода, ожидались данные типа " + type.getSimpleName());
                 throw new EndOfExecutionException("Конец ввода");
+
             } catch (NumberFormatException e) {
-                if (scriptMode) throw new ScriptExecutionException("Ожидались данные типа " + type.getSimpleName());
-                logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
-                System.out.println("Введите данные типа " + type.getSimpleName());
+                handleError("Ожидались данные типа " + type.getSimpleName(), e);
             } catch (IllegalArgumentException e) {
-                if (scriptMode) throw new ScriptExecutionException("Такой единицы измерения не существует");
-                logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
-                System.out.println("Такой единицы измерения не существует");
+                handleError("Такой единицы измерения не существует", e);
             } catch (DateTimeParseException e) {
-                if (scriptMode) throw new ScriptExecutionException("Некорректная дата (надо yyyy-mm-dd)");
-                logger.error("Введены данные не типа {}", type.getSimpleName(),  e);
-                System.out.println("Введите корректную дату в формате yyyy-mm-dd");
+                handleError("Ожидалась дата в формате yyyy-MM-dd", e);
             } catch (TypeNotFoundException e) {
-                if (scriptMode) throw new ScriptExecutionException("Тип не поддерживается");
-                logger.error("Тип не поддерживается", e);
-                System.out.println(e.getMessage());
+                handleError("Тип не поддерживается", e);
             }
         }
         return result;
@@ -90,8 +84,21 @@ public class Form {
             case "Long", "long" -> type.cast(Long.parseLong(value));
             case "String" -> type.cast(value);
             case "LocalDate" -> type.cast(LocalDate.parse(value));
-            case "UnitOfMeasure" -> type.cast(UnitOfMeasure.valueOf(value));
+            case "UnitOfMeasure" -> type.cast(UnitOfMeasure.valueOf(value.toUpperCase()));
             default -> throw new TypeNotFoundException("Тип еще не поддерживается");
         };
+    }
+
+    /**
+     * Метод для обработки ошибок
+     * @param message сообщение ошибки
+     * @param e класс ошибки
+     */
+    private void handleError(String message, Exception e) {
+        if (scriptMode) {
+            throw new ScriptExecutionException(message);
+        }
+        logger.error(message, e);
+        System.out.println(message);
     }
 }

@@ -4,9 +4,9 @@ import exceptions.IdNotFoundException;
 import models.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import utility.ProductForm;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import java.util.function.Consumer;
@@ -74,16 +74,14 @@ public class CollectionManager {
 
     /**
      * Обновление продукта по id
-     * @param productForm форма для запроса продукта
      */
-    public void updateProductById(int id, ProductForm productForm) {
+    public void updateProductById(int id, Product newProduct) {
         Product updatedProduct = collection.stream()
-                        .filter(product -> product.getId() == id)
-                        .findFirst()
-                        .orElseThrow(() -> new IdNotFoundException("Нет такого id"));
-        Product product = productForm.getProduct();
-        updatedProduct.update(product);
-        logger.info("Элемент с id {} обновлен, новое значение {}", id, product);
+                .filter(product -> product.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IdNotFoundException("Нет такого id"));
+        updatedProduct.update(newProduct);
+        logger.info("Элемент с id {} обновлен, новое значение {}", id, newProduct);
     }
 
     /**
@@ -92,13 +90,6 @@ public class CollectionManager {
     public void clearCollection() {
         collection.clear();
         logger.info("Коллекция очищена");
-    }
-
-    /**
-     * Получение размера коллекции
-     */
-    public int getCollectionSize() {
-        return collection.size();
     }
 
     /**
@@ -134,6 +125,22 @@ public class CollectionManager {
 
         if (result.isEmpty()) return "Совпадений не найдено";
         return result;
+    }
+
+    /**
+     * Получение информации о коллекции (тип, дата инициализации, количество элементов)
+     */
+    public String getCollectionInfo() {
+        return """
+                Информация о коллекции:
+                  Тип: %s
+                  Дата инициализации: %s
+                  Количество элементов: %s""".formatted(collection.getClass().getSimpleName(),
+                dateOfInit.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), getCollectionSize());
+    }
+
+    public int getCollectionSize() {
+        return collection.size();
     }
 
     /**
