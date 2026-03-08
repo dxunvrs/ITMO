@@ -16,7 +16,7 @@ start:
     LD #0x80
     DEC
     SWAB
-    ST RES
+    ST res
 
     LD first
     ST row_start ; начинаем с начала
