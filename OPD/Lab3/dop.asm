@@ -5,12 +5,17 @@ first: WORD $x1
 current: WORD 0x0000 ; адрес текущего элемента (перебор с начала)
 rows: WORD 0x0002 ; кол-во строк
 cols: WORD 0x0003 ; кол-во столбцов
-res: WORD 0x7FFF ; результат
+res: WORD 0x0000 ; результат
 
 row_counter: WORD 0x0000 ; счетчик для строк
 column_counter: WORD 0x0000 ; счетчик для столбцов
 
 start: 
+    LD #0x80
+    DEC
+    SWAB
+    ST RES
+
     LD first
     ST current ; начинаем с начала
 
