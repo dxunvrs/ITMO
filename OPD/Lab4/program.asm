@@ -1,51 +1,52 @@
-org 0x11b
+org 0x297
 
 start:
     CLA
     ST res
+
     LD X
-    PUSH
+    PUSH 
     CALL $f
     POP
+
     SUB res
     ST res
-    LD Y
-    DEC
-    PUSH
-    CALL $f
-    POP
-    INC
-    ADD res
-    ST res
+
     LD Z
     PUSH
     CALL $f
     POP
+    DEC
+
     SUB res
     ST res
-    HLT
 
+    LD Y
+    PUSH
+    CALL $f
+    POP
+
+    SUB res
+    ST res
+
+    HLT
 Z: WORD 0x0000
 Y: WORD 0x0000
 X: WORD 0x0000
-res: WORD 0x00C9
+res: WORD 0x008E
 
-org 0x74b
+org 0x689
 
-f:
+f:  
     LD &1
-    BEQ zero
-    BPL return_const
-    zero: CMP A
-    BLT return_const
-    BEQ return_const
-    ADD &1
-    ADD &1
-    ADD &1
-    SUB B
+    BMI return_const
+    CMP A
+    BGE return_const
+    ASL
+    ADD B
     JUMP return
     return_const: LD A
     return: ST &1
     RET
-    A: WORD 0xFDF7
-    B: WORD 0x00C6
+A: WORD 0x01B4
+B: WORD 0x008D
