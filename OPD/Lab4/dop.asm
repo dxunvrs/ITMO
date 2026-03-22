@@ -2,49 +2,64 @@
 
 start:
     CLA
+
     CALL $max
-    a: WORD 0x0000
-    b: WORD 0x8000
-    c: WORD 0x7FFF
-    res: WORD 0x0000
+    x1: WORD 0x0000
+    x2: WORD 0x8000
+    x3: WORD 0x7FFF
+    res1: WORD 0x0000
+
+    CALL $max
+    y1: WORD 0x0100
+    y2: WORD 0x1100
+    y3: WORD 0xA010
+    res2: WORD 0x0000
+
     HLT
 
-max:
+org 0x555
+
+max: ; операнды копируем и передаем адрес результата
     LD (SP+0)
-    ST msp
+    ST ret_addr
 
-    LD (msp)+
-    ST addr_a
-    LD (msp)+
-    ST addr_b
-    LD (msp)+
-    ST addr_c
-    LD (msp)
-    ST addr_res
+    LD (ret_addr)+
+    ST a
+    LD (ret_addr)+
+    ST b
+    LD (ret_addr)+
+    ST c
+    
+    LD ret_addr
+    ST res_addr
 
-    LD addr_a
-    CMP addr_b
+    LD a
+    CMP b
     BGE a_or_c
 
-    b_or_c: LD addr_b
-    CMP addr_c
+    b_or_c: LD b
+    CMP c
     BLT return_c
-    ST addr_res ; сохранили b
+    ST (res_addr) ; сохранили b
+    JUMP return
 
-    return_c: LD addr_c
-    ST addr_res ; сохранили c
+    return_c: LD c
+    ST (res_addr) ; сохранили c
+    JUMP return
 
-    a_or_c: CMP addr_c
+    a_or_c: CMP c ; сейчас в аккумуляторе a
     BLT return_c
-    ST addr_res ; сохранили a
+    ST (res_addr) ; сохранили a
 
-    LD addr_res
-    ST (addr_res)
+    return: 
+        LD ret_addr ; сейчас на адресе результата
+        INC ; чтобы продолжить выполнение
+        ST (SP+0) ; адрес возврата - ячейка после результата
 
-    RET
+        RET
 
-    msp: WORD 0x0000 ; ячейка для вершины стека
-    addr_a: WORD 0x0000 ; адрес операнда a
-    addr_b: WORD 0x0000 ; адрес операнда b
-    addr_c: WORD 0x0000 ; адрес операнда c
-    addr_res: WORD 0x8000 ; адрес результата
+    ret_addr: WORD 0x0000 ; ячейка для вершины стека
+    a: WORD 0x0000 ; первый операнд
+    b: WORD 0x0000 ; второй операнд
+    c: WORD 0x0000 ; третий операнд
+    res_addr: WORD 0x0000 ; адрес результата
