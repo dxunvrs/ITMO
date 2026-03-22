@@ -1,0 +1,6 @@
+[submodule "Prog/Lab5"]
+	path = Prog/Lab5
+	url = git@github.com:dxunvrs/prog-lab5.git
+[submodule "Prog/Lab6"]
+	path = Prog/Lab6
+	url = git@github.com:dxunvrs/prog-lab6.git
