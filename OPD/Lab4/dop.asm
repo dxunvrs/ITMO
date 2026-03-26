@@ -7,13 +7,13 @@ start:
     x1: WORD 0x0000
     x2: WORD 0x8000
     x3: WORD 0x7FFF
-    res1: WORD 0x0000
+    res1: WORD ?
 
     CALL $max
     y1: WORD 0x0100
     y2: WORD 0x1100
     y3: WORD 0xA010
-    res2: WORD 0x0000
+    res2: WORD ?
 
     HLT
 
@@ -58,8 +58,8 @@ max: ; операнды копируем и передаем адрес резу
 
         RET
 
-    ret_addr: WORD 0x0000 ; ячейка для вершины стека
-    a: WORD 0x0000 ; первый операнд
-    b: WORD 0x0000 ; второй операнд
-    c: WORD 0x0000 ; третий операнд
-    res_addr: WORD 0x0000 ; адрес результата
+    ret_addr: WORD ? ; ячейка для вершины стека
+    a: WORD ? ; первый операнд
+    b: WORD ? ; второй операнд
+    c: WORD ? ; третий операнд
+    res_addr: WORD ? ; адрес результата
