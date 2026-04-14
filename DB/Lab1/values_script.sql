@@ -13,7 +13,7 @@ VALUES ('Marshall', 'Charles', 'Paleobiology', '1961-01-02');
 INSERT INTO scientist (surname, name, specialization, birthday)
 VALUES ('Suwa', 'Genya', 'Paleoanthropology', '1954-02-12');
 INSERT INTO scientist (surname, name, specialization, birthday)
-VALUES ('Barrett', 'Paul', 'Palaeobiology', '21-09-1971');
+VALUES ('Barrett', 'Paul', 'Palaeobiology', '1971-09-21');
 
 INSERT INTO university_workers (scientist_id, university_id, start_date, end_date)
 VALUES (1, 1, '2010-07-01', NULL);
