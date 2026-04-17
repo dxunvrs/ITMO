@@ -11,8 +11,13 @@ BEGIN
 
     -- Если дата окончания заполнена и она уже прошла
     IF research_end_date IS NOT NULL AND research_end_date < CURRENT_DATE THEN
-        RAISE EXCEPTION 'Нельзя добавить ученого: исследование (ID %) уже завершено %', 
-            NEW.fossils_research_id, research_end_date;
+        IF TG_OP = 'INSERT' THEN
+            RAISE EXCEPTION 'Нельзя добавить ученого: исследование (ID %) уже завершено %', 
+                NEW.fossils_research_id, research_end_date;
+        ELSIF TG_OP = 'UPDATE' THEN
+            RAISE EXCEPTION 'Нельзя изменить исследование ученого: новое исследование (ID %) уже завершено %', 
+                NEW.fossils_research_id, research_end_date;
+        END IF;
     END IF;
 
     -- Если всё хорошо, разрешаем вставку
@@ -22,6 +27,6 @@ $$ LANGUAGE plpgsql;
 
 -- 2. Создаем сам триггер
 CREATE TRIGGER tr_prevent_join_closed_research
-BEFORE INSERT ON scientists_in_research
+BEFORE INSERT OR UPDATE ON scientists_in_research
 FOR EACH ROW
 EXECUTE FUNCTION check_research_is_active();
