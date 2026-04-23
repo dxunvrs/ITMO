@@ -60,7 +60,6 @@ digit_in:
 
     JUMP keyboard_in
     
-
 op_in:
     ; сейчас ввели знак, мы сделаем result = result +- current и очистим current,
     ; а потом сохраним новый знак
