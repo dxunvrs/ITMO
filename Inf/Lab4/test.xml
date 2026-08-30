@@ -1,0 +1,34 @@
+<root>
+    <Falseword>
+        <a>2</a>
+        <list>
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+            <item>True</item>
+            <item>str</item>
+        </list>
+        <unnamed>
+            <a>2</a>
+            <b>4</b>
+        </unnamed>
+        <boolean>False</boolean>
+        <test_arr>
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+        </test_arr>
+        <slovar>
+            <name>roma</name>
+            <age>17</age>
+        </slovar>
+        <test_list>
+            <item>
+                <aga>1</aga>
+                <agb>2</agb>
+            </item>
+            <item>1</item>
+            <item>False</item>
+        </test_list>
+    </Falseword>
+</root>
