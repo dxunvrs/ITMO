@@ -1,0 +1,17 @@
+name: Edge Cases Experiments
+limit: 100
+memory_size: 0x1000
+memory_mapped_io:
+  # На входе лежат случайные буквы (например, 'H' = 72, 'e' = 101)
+  # Они понадобятся, когда мы заставим процессор "выполнять" их в Кейсе 2!
+  0x80: [72, 101, 108]
+  0x84: []
+reports:
+  - name: Testing
+    slice: all
+    view: |
+      PC: {pc:hex} | Cmd: {instruction:next} | Acc: {Acc:hex}
+  - name: Result
+    slice: last
+    view: |
+      Вывод в 0x84 (адрес метки): {io:0x84:dec}
