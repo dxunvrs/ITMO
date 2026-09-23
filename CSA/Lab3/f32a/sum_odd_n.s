@@ -1,14 +1,29 @@
+    .data
+.org             0x88
+
+input_addr:      .word  0x80
+output_addr:     .word  0x84
+
+err_input:       .word  -1
+err_overflow:    .word  0xCCCCCCCC
+multiply_steps:  .word  31
+
     .text
-    .org 0x88
 
 _start:
-    @p 0x80
+    @p input_addr
+    a!
+    @p output_addr
+    b!
+
+    @
 
     dup if err
     dup -if calc
 
 err:
-    -1 !p 0x84
+    @p err_input
+    !b
     halt
 
 calc:
@@ -29,16 +44,17 @@ check_sign:
     overflow ;
 
 print:
-    !p 0x84
+    !b
     halt
 
 overflow:
-    0xCCCCCCCC
-    !p 0x84
+    @p err_overflow
+    !b
     halt
 
 multiply:
-    31 >r
+    @p multiply_steps
+    >r
 
 multiply_loop:
     +*
