@@ -1,0 +1,24 @@
+name: "SGVsbG8gd29ybGQh\ -> Hello World!"
+limit: 2000
+memory_size: 0x1000
+memory_mapped_io:
+  # 'S', 'G', 'V', 's', 'b', 'G', '8', 'g', 'd', '2', '9', 'y', 'b', 'G', 'Q', 'h', '\n'
+  0x80: [83, 71, 86, 115, 98, 71, 56, 103, 100, 50, 57, 121, 98, 71, 81, 104, 10]
+  0x84: []
+reports:
+  - name: Check results
+    slice: last
+    filter:
+      - state
+    view: |
+      numio[0x80]: {io:0x80:dec}
+      numio[0x84]: {io:0x84:dec}
+      symio[0x80]: {io:0x80:sym}
+      symio[0x84]: {io:0x84:sym}
+      {memory:0:63}
+    assert: |
+      numio[0x80]: [] >>> []
+      numio[0x84]: [] >>> [72,101,108,108,111,32,119,111,114,108,100,33]
+      symio[0x80]: "" >>> ""
+      symio[0x84]: "" >>> "Hello world!"
+      mem[0..63]: 	48 65 6c 6c 6f 20 77 6f 72 6c 64 21 00 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f 5f
