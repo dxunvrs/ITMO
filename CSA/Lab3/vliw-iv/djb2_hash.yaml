@@ -1,0 +1,22 @@
+name: "Hello World -> -2022174591"
+limit: 2000
+memory_size: 0x1000
+memory_mapped_io:
+  # 'H','e','l','l','o',' ','W','o','r','l','d','\0'
+  0x80: [72, 101, 108, 108, 111, 32, 87, 111, 114, 108, 100, 0]
+  0x84: []
+reports:
+  - name: Check results
+    slice: last
+    view: |
+      numio[0x80]: {io:0x80:dec}
+      numio[0x84]: {io:0x84:dec}
+    assert: |
+      numio[0x80]: [] >>> []
+      numio[0x84]: [] >>> [-2022174591]
+  - name: vliw
+    slice: last
+    view: |
+      vliw:load-percent:    {vliw:load-percent}
+      vliw:avg-load:        {vliw:avg-load}
+      vliw:bundles-by-load: {vliw:bundles-by-load}
