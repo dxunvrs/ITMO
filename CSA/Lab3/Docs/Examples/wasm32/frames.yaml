@@ -1,0 +1,13 @@
+name: "nested calls, for looking at the frame layout"
+limit: 500
+memory_size: 0xA0
+zero_memory_init: true
+reports:
+  - name: Stack layout
+    slice: last
+    view: |
+      ---
+      pc: {pc:hex}
+      sp: {sp:hex} frame-base: {frame-base:hex}
+      stack-root: {stack-root:hex} ctrl-sp: {ctrl-sp:hex}
+      {stack:dump:hex}
